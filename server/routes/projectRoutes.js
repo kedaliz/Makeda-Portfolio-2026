@@ -15,6 +15,11 @@ router.get('/', async (req, res) => {
 // GET single project by ID
 router.get('/:id', async (req, res) => {
   try {
+    // Validate MongoDB ObjectId format
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: 'Invalid project ID format' });
+    }
+    
     const project = await Project.findById(req.params.id);
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
@@ -47,13 +52,23 @@ router.post('/', async (req, res) => {
 // PUT update project
 router.put('/:id', async (req, res) => {
   try {
+    // Validate MongoDB ObjectId format
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: 'Invalid project ID format' });
+    }
+    
     const project = await Project.findById(req.params.id);
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
 
-    Object.keys(req.body).forEach(key => {
-      project[key] = req.body[key];
+    // Whitelist of allowed fields to update
+    const allowedFields = ['title', 'description', 'imageUrl', 'technologies', 'githubUrl', 'liveUrl'];
+    
+    allowedFields.forEach(field => {
+      if (req.body[field] !== undefined) {
+        project[field] = req.body[field];
+      }
     });
 
     const updatedProject = await project.save();
@@ -66,6 +81,11 @@ router.put('/:id', async (req, res) => {
 // DELETE project
 router.delete('/:id', async (req, res) => {
   try {
+    // Validate MongoDB ObjectId format
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: 'Invalid project ID format' });
+    }
+    
     const project = await Project.findById(req.params.id);
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
