@@ -17,6 +17,7 @@ A modern MERN stack portfolio application to showcase projects and work for inte
 - 💾 MongoDB database integration
 - 🎯 GET and POST project endpoints
 - 🖼️ Project cards with images and technology tags
+- 🔒 Security features: input validation, rate limiting, field whitelisting
 
 ## Project Structure
 
