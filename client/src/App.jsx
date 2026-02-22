@@ -7,22 +7,162 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activePage, setActivePage] = useState('website');
-  const displayProjects = projects.slice(0, 1);
+  const displayProjects = projects;
   const pictures = [
     {
       id: '1',
-      title: 'Picture One',
-      imageUrl: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=900&h=700&fit=crop',
+      title: 'Graduate Pictures',
+      imageUrl: 'images/DSC02427.jpg',
     },
     {
       id: '2',
-      title: 'Picture Two',
-      imageUrl: 'https://images.unsplash.com/photo-1517467139951-f5a925c9f9de?w=900&h=700&fit=crop',
+      title: 'Proud Moments',
+      imageUrl: 'images/DSC02581.jpg',
     },
     {
       id: '3',
       title: 'Picture Three',
-      imageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&h=700&fit=crop',
+      imageUrl: 'images/IMG_9847-2.jpg',
+    },
+    {
+      id: '4',
+      title: 'Picture Four',
+      imageUrl: 'images/IMG_9219.jpg',
+    },
+     {
+      id: '5',
+      title: 'Picture Five',
+      imageUrl: 'images/IMG_8649.jpg',
+    },
+     {
+      id: '6',
+      title: 'Picture Six',
+      imageUrl: 'images/IMG_8240.jpg',
+    },
+    {
+      id: '7',
+      title: 'Picture Seven',
+      imageUrl: 'images/IMG_0254.jpg',
+    },
+    {
+      id: '8',
+      title: 'Picture Eight',
+      imageUrl: 'images/IMG_0075.jpg',
+    },
+    {
+      id: '9',
+      title: 'Picture Nine',
+      imageUrl: 'images/IMG_0098.jpg',
+    },
+    {
+      id: '10',
+      title: 'Picture Ten',
+      imageUrl: 'images/IMG_1405.jpg',
+    },
+    {
+      id: '11',
+      title: 'Picture Eleven',
+      imageUrl: 'images/IMG_0270 (1).jpg',
+    },
+    {
+      id: '12',
+      title: 'Picture Twelve',
+      imageUrl: 'images/IMG_2163.JPG',
+    },
+    {
+      id: '13',
+      title: 'Picture Thirteen',
+      imageUrl: 'images/IMG_9749.JPG',
+    },
+    {
+      id: '14',
+      title: 'Picture Fourteen',
+      imageUrl: 'images/IMG_1785.jpg',
+    },
+    {
+      id: '15',
+      title: 'Picture Fifteen',
+      imageUrl: 'images/IMG_1610.jpg',
+    },
+    {
+      id: '16',
+      title: 'Picture Sixteen',
+      imageUrl: 'images/IMG_0048.JPG',
+    },
+    {
+      id: '17',
+      title: 'Picture Seventeen',
+      imageUrl: 'images/IMG_9850-2.jpg',
+    },
+    {
+      id: '18',
+      title: 'Picture Eighteen',
+      imageUrl: 'images/IMG_1058.jpg',
+    },
+    {
+      id: '19',
+      title: 'Picture Nineteen',
+      imageUrl: 'images/IMG_1400.jpg',
+    },
+    {
+      id: '20',
+      title: 'Picture Twenty',
+      imageUrl: 'images/IMG_1402.jpg',
+    },
+    {
+      id: '21',
+      title: 'Picture Twenty-One',
+      imageUrl: 'images/IMG_2016.jpg',
+    },
+    {
+      id: '22',
+      title: 'Picture Twenty-Two',
+      imageUrl: 'images/IMG_2856.jpg',
+    },
+    {
+      id: '23',
+      title: 'Picture Twenty-Three',
+      imageUrl: 'images/IMG_2891.jpg',
+    },
+    {
+      id: '24',
+      title: 'Picture Twenty-Four',
+      imageUrl: 'images/IMG_4947.jpg',
+    },
+    {
+      id: '25',
+      title: 'Picture Twenty-Five',
+      imageUrl: 'images/IMG_6820.jpg',
+    },
+     {
+      id: '26',
+      title: 'Picture Twenty-Six',
+      imageUrl: 'images/IMG_4964.JPG',
+    },
+     {
+      id: '27',
+      title: 'Picture Twenty-Seven',
+      imageUrl: 'images/IMG_4975.jpg',
+    },
+     {
+      id: '28',
+      title: 'Picture Twenty-Eight',
+      imageUrl: 'images/IMG_4980.jpg',
+    },
+     {
+      id: '29',
+      title: 'Picture Twenty-Nine',
+      imageUrl: 'images/IMG_4981.jpg',
+    },
+     {
+      id: '30',
+      title: 'Picture Thirty',
+      imageUrl: 'images/IMG_4994.JPG',
+    },
+     {
+      id: '31',
+      title: 'Picture Thirty-One',
+      imageUrl: 'images/IMG_5024.JPG',
     },
   ];
 
@@ -41,12 +181,12 @@ function App() {
       setProjects([
         {
           _id: '1',
-          title: 'My Website',
-          description: 'A modern website built with React and Node.js to showcase my work and skills.',
-          imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop',
-          technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-          githubUrl: 'https://github.com',
-          liveUrl: 'https://example.com'
+          title: 'Community Events Directory',
+          description: 'A full-stack MERN application for creating, managing, and RSVPing to local community gatherings.',
+          imageUrl: '/images/communityimage.jpg',
+          technologies: ['React', 'Node.js', 'MongoDB Atlas', 'Express',' and Render'],
+          githubUrl: 'https://github.com/kedaliz/Community-Events.git',
+          liveUrl: 'https://community-events-v5rb.onrender.com'
         }
       ]);
     } finally {
@@ -103,7 +243,7 @@ function App() {
             {loading ? (
               <div className="loading">
                 <div className="spinner"></div>
-                <p>Loading project...</p>
+                <p>Loading projects...</p>
               </div>
             ) : (
               <div className="projects-grid">
@@ -122,9 +262,9 @@ function App() {
         ) : (
           <>
             <section className="hero-section">
-              <h2 className="section-title">My Pictures</h2>
+              <h2 className="section-title">My Photography Portfolio</h2>
               <p className="section-description">
-                A small gallery of my favorite photos
+                A small gallery of my past work in photography, showcasing moments of joy, beauty, and connection.
               </p>
             </section>
 
