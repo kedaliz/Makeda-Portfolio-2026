@@ -6,7 +6,25 @@ import './App.css';
 function App() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [activePage, setActivePage] = useState('website');
+  const displayProjects = projects.slice(0, 1);
+  const pictures = [
+    {
+      id: '1',
+      title: 'Picture One',
+      imageUrl: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=900&h=700&fit=crop',
+    },
+    {
+      id: '2',
+      title: 'Picture Two',
+      imageUrl: 'https://images.unsplash.com/photo-1517467139951-f5a925c9f9de?w=900&h=700&fit=crop',
+    },
+    {
+      id: '3',
+      title: 'Picture Three',
+      imageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&h=700&fit=crop',
+    },
+  ];
 
   useEffect(() => {
     fetchProjects();
@@ -17,61 +35,16 @@ function App() {
       setLoading(true);
       const data = await getAllProjects();
       setProjects(data);
-      setError(null);
     } catch (err) {
       console.error('Error fetching projects:', err);
-      setError('Failed to load projects. Please make sure the server is running.');
-      // Set some sample projects for demo purposes when API is not available
+      // Set a sample project for demo purposes when API is not available
       setProjects([
         {
           _id: '1',
-          title: 'Portfolio Website',
-          description: 'A modern portfolio website built with React and Node.js to showcase my work and skills.',
+          title: 'My Website',
+          description: 'A modern website built with React and Node.js to showcase my work and skills.',
           imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop',
           technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-          githubUrl: 'https://github.com',
-          liveUrl: 'https://example.com'
-        },
-        {
-          _id: '2',
-          title: 'E-Commerce Platform',
-          description: 'Full-stack e-commerce platform with user authentication, product management, and payment integration.',
-          imageUrl: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=500&h=300&fit=crop',
-          technologies: ['React', 'Redux', 'Node.js', 'Stripe'],
-          githubUrl: 'https://github.com',
-          liveUrl: 'https://example.com'
-        },
-        {
-          _id: '3',
-          title: 'Task Management App',
-          description: 'Collaborative task management application with real-time updates and team collaboration features.',
-          imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop',
-          technologies: ['React', 'Firebase', 'Material-UI'],
-          githubUrl: 'https://github.com'
-        },
-        {
-          _id: '4',
-          title: 'Weather Dashboard',
-          description: 'Interactive weather dashboard that displays current conditions and forecasts using external APIs.',
-          imageUrl: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=500&h=300&fit=crop',
-          technologies: ['React', 'OpenWeather API', 'Chart.js'],
-          githubUrl: 'https://github.com',
-          liveUrl: 'https://example.com'
-        },
-        {
-          _id: '5',
-          title: 'Social Media Dashboard',
-          description: 'Analytics dashboard for tracking social media metrics and engagement across multiple platforms.',
-          imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop',
-          technologies: ['React', 'D3.js', 'Express', 'PostgreSQL'],
-          githubUrl: 'https://github.com'
-        },
-        {
-          _id: '6',
-          title: 'Blog Platform',
-          description: 'Modern blogging platform with markdown support, comments, and user authentication.',
-          imageUrl: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=500&h=300&fit=crop',
-          technologies: ['React', 'Node.js', 'MongoDB', 'JWT'],
           githubUrl: 'https://github.com',
           liveUrl: 'https://example.com'
         }
@@ -87,43 +60,82 @@ function App() {
         <div className="header-content">
           <h1 className="header-title">Makeda's Portfolio</h1>
           <p className="header-subtitle">
-            Full-Stack Developer | MERN Stack Specialist
+            Information Science Student | UX/UI Design & Tech Policy
           </p>
+          <div className="page-nav" role="tablist" aria-label="Portfolio pages">
+            <button
+              type="button"
+              className={`page-nav-button ${activePage === 'website' ? 'active' : ''}`}
+              onClick={() => setActivePage('website')}
+            >
+              Website
+            </button>
+            <button
+              type="button"
+              className={`page-nav-button ${activePage === 'pictures' ? 'active' : ''}`}
+              onClick={() => setActivePage('pictures')}
+            >
+              Pictures
+            </button>
+          </div>
         </div>
       </header>
 
       <main className="main-content">
-        <section className="hero-section">
-          <h2 className="section-title">My Projects</h2>
-          <p className="section-description">
-            Explore my work and see what I've been building
-          </p>
-        </section>
+        {activePage === 'website' ? (
+          <>
+            <section className="hero-section">
+              <h2 className="section-title">My Projects</h2>
+              <p className="section-description">
+                Explore my work and see what I built
+              </p>
+            </section>
 
-        {error && (
-          <div className="error-message">
-            <p>{error}</p>
-            <p className="error-note">Showing sample projects for demonstration.</p>
-          </div>
-        )}
+            <section className="about-section">
+              <h3 className="about-title">About Me</h3>
+              <p className="about-text">
+                I am an Information Science student focused on UX/UI design and tech policy.
+                I enjoy building thoughtful digital experiences that are accessible, useful, and
+                people-centered.
+              </p>
+            </section>
 
-        {loading ? (
-          <div className="loading">
-            <div className="spinner"></div>
-            <p>Loading projects...</p>
-          </div>
-        ) : (
-          <div className="projects-grid">
-            {projects.length > 0 ? (
-              projects.map((project) => (
-                <ProjectCard key={project._id} project={project} />
-              ))
+            {loading ? (
+              <div className="loading">
+                <div className="spinner"></div>
+                <p>Loading project...</p>
+              </div>
             ) : (
-              <div className="no-projects">
-                <p>No projects to display yet.</p>
+              <div className="projects-grid">
+                {displayProjects.length > 0 ? (
+                  displayProjects.map((project) => (
+                    <ProjectCard key={project._id} project={project} />
+                  ))
+                ) : (
+                  <div className="no-projects">
+                    <p>No project to display yet.</p>
+                  </div>
+                )}
               </div>
             )}
-          </div>
+          </>
+        ) : (
+          <>
+            <section className="hero-section">
+              <h2 className="section-title">My Pictures</h2>
+              <p className="section-description">
+                A small gallery of my favorite photos
+              </p>
+            </section>
+
+            <div className="photo-grid">
+              {pictures.map((picture) => (
+                <figure key={picture.id} className="photo-card">
+                  <img src={picture.imageUrl} alt={picture.title} className="photo-image" />
+                </figure>
+              ))}
+            </div>
+          </>
         )}
       </main>
 

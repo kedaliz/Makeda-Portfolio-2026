@@ -1,4 +1,4 @@
-# Makeda-Portfolio-2026
+ # Makeda-Portfolio-2026
 
 A modern MERN stack portfolio application to showcase projects and work for internship applications.
 
