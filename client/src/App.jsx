@@ -320,7 +320,7 @@ function App() {
                 <div className="about-text-content">
                   <h3 className="about-title">Hi, I'm Makeda</h3>
                   <p className="about-text">
-                    I’m an Information Science junior at Cornell University focusing on UX/UI and the ethics of technology. I’m originally from St. Thomas, USVI, and a lot of what I do is inspired by the vibrant culture of the Caribbean and the Black experience.
+                    I’m an Information Science junior at Cornell University focusing on UX/UI and Tech Ethics Law, and Policy I’m originally from St. Thomas, USVI, and a lot of what I do is inspired by the vibrant culture of the Caribbean and the Black experience.
                   </p>
                   <p className="about-text">
                     Lately, I've been using design, code, and{' '}
