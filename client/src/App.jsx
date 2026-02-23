@@ -8,6 +8,36 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [activePage, setActivePage] = useState('website');
   const displayProjects = projects;
+  const featuredProjects = [
+    {
+      _id: 'apple-fest',
+      title: 'Apple Fest',
+      description: 'A live event website experience for Apple Fest.',
+      imageUrl: '/images/apple-fest-cover.png',
+      imageFit: 'contain',
+      imagePosition: 'center',
+      imageBackground: '#f0f0f0',
+      technologies: ['React', 'Vite', 'Render'],
+      githubUrl: 'https://github.com/your-username/apple-fest',
+      liveUrl: 'https://apple-fest.onrender.com/',
+    },
+  ];
+
+  const mergeProjects = (projectList = []) => {
+    const normalizedExistingLiveUrls = new Set(
+      projectList
+        .map((project) => project.liveUrl?.trim().toLowerCase())
+        .filter(Boolean)
+    );
+
+    const missingFeatured = featuredProjects.filter((project) => {
+      const liveUrl = project.liveUrl?.trim().toLowerCase();
+      return !liveUrl || !normalizedExistingLiveUrls.has(liveUrl);
+    });
+
+    return [...missingFeatured, ...projectList];
+  };
+
   const pictures = [
     {
       id: '1',
@@ -174,11 +204,11 @@ function App() {
     try {
       setLoading(true);
       const data = await getAllProjects();
-      setProjects(data);
+      setProjects(mergeProjects(data));
     } catch (err) {
       console.error('Error fetching projects:', err);
       // Set a sample project for demo purposes when API is not available
-      setProjects([
+      setProjects(mergeProjects([
         {
           _id: '1',
           title: 'Community Events Directory',
@@ -188,7 +218,7 @@ function App() {
           githubUrl: 'https://github.com/kedaliz/Community-Events.git',
           liveUrl: 'https://community-events-v5rb.onrender.com'
         }
-      ]);
+      ]));
     } finally {
       setLoading(false);
     }
@@ -212,6 +242,13 @@ function App() {
             </button>
             <button
               type="button"
+              className={`page-nav-button ${activePage === 'about' ? 'active' : ''}`}
+              onClick={() => setActivePage('about')}
+            >
+              About Me
+            </button>
+            <button
+              type="button"
               className={`page-nav-button ${activePage === 'pictures' ? 'active' : ''}`}
               onClick={() => setActivePage('pictures')}
             >
@@ -228,15 +265,6 @@ function App() {
               <h2 className="section-title">My Projects</h2>
               <p className="section-description">
                 Explore my work and see what I built
-              </p>
-            </section>
-
-            <section className="about-section">
-              <h3 className="about-title">About Me</h3>
-              <p className="about-text">
-                I am an Information Science student focused on UX/UI design and tech policy.
-                I enjoy building thoughtful digital experiences that are accessible, useful, and
-                people-centered.
               </p>
             </section>
 
@@ -259,10 +287,39 @@ function App() {
               </div>
             )}
           </>
+        ) : activePage === 'about' ? (
+          <>
+            <section className="hero-section">
+              <h2 className="section-title">About Me</h2>
+              <p className="section-description">
+                Get to know my background, interests, and goals.
+              </p>
+            </section>
+
+            <section className="about-page" aria-label="About Makeda">
+              <div className="about-content">
+                <div className="about-text-content">
+                  <h3 className="about-title">Hi, I'm Makeda</h3>
+                  <p className="about-text">
+                    I am an Information Science student focused on UX/UI design and tech policy.
+                    I enjoy building thoughtful digital experiences that are accessible, useful, and
+                    people-centered.
+                  </p>
+                </div>
+                <div className="about-photo-spot" aria-label="Profile picture">
+                  <img
+                    src="images/IMG_1720.JPG"
+                    alt="Makeda portrait"
+                    className="about-photo-image"
+                  />
+                </div>
+              </div>
+            </section>
+          </>
         ) : (
           <>
             <section className="hero-section">
-              <h2 className="section-title">My Photography Portfolio</h2>
+              <h2 className="section-title">My Photography</h2>
               <p className="section-description">
                 A small gallery of my past work in photography, showcasing moments of joy, beauty, and connection.
               </p>
@@ -271,7 +328,13 @@ function App() {
             <div className="photo-grid">
               {pictures.map((picture) => (
                 <figure key={picture.id} className="photo-card">
-                  <img src={picture.imageUrl} alt={picture.title} className="photo-image" />
+                  <img
+                    src={picture.imageUrl}
+                    alt={picture.title}
+                    className="photo-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </figure>
               ))}
             </div>

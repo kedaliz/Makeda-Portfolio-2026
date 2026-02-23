@@ -1,6 +1,12 @@
 import './ProjectCard.css';
 
 const ProjectCard = ({ project }) => {
+  const imageStyle = {
+    objectFit: project.imageFit || 'cover',
+    objectPosition: project.imagePosition || 'center',
+    backgroundColor: project.imageBackground || 'transparent',
+  };
+
   return (
     <div className="project-card">
       <div className="project-image-container">
@@ -8,6 +14,7 @@ const ProjectCard = ({ project }) => {
           src={project.imageUrl} 
           alt={project.title}
           className="project-image"
+          style={imageStyle}
         />
       </div>
       <div className="project-content">
