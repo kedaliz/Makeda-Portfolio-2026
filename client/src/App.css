@@ -121,6 +121,26 @@
   color: #555;
 }
 
+.about-text + .about-text {
+  margin-top: 0.9rem;
+}
+
+.about-text-link {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  border-bottom: 1px solid rgba(29, 78, 216, 0.35);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.about-text-link:hover {
+  color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
 .about-photo-spot {
   border-radius: 12px;
   min-height: 260px;
@@ -217,6 +237,29 @@
   object-fit: cover;
 }
 
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.load-more-button {
+  border: 1px solid #1d4ed8;
+  background: #1d4ed8;
+  color: #fff;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.load-more-button:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
 .footer {
   background: #0f172a;
   color: white;
@@ -307,6 +350,15 @@
 
   .about-text {
     color: #ddd;
+  }
+
+  .about-text-link {
+    border-bottom-color: rgba(147, 197, 253, 0.45);
+  }
+
+  .about-text-link:hover {
+    color: #93c5fd;
+    border-bottom-color: #93c5fd;
   }
 
   .about-photo-spot {

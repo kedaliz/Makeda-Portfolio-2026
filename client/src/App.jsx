@@ -7,8 +7,21 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activePage, setActivePage] = useState('website');
+  const [visiblePhotoCount, setVisiblePhotoCount] = useState(9);
   const displayProjects = projects;
   const featuredProjects = [
+    {
+      _id: 'meme-generator',
+      title: 'Meme Generator',
+      description: 'A fun web app to create and customize memes directly in the browser.',
+      imageUrl: '/images/meme-generator-cover.png',
+      imageFit: 'contain',
+      imagePosition: 'center',
+      imageBackground: '#f0f0f0',
+      technologies: ['React', 'JavaScript', 'CSS', 'Vercel'],
+      githubUrl: 'https://github.com/kedaliz/meme-generator',
+      liveUrl: 'https://meme-generator-quum8gtzy-kedalizs-projects.vercel.app/',
+    },
     {
       _id: 'apple-fest',
       title: 'Apple Fest',
@@ -18,7 +31,7 @@ function App() {
       imagePosition: 'center',
       imageBackground: '#f0f0f0',
       technologies: ['React', 'Vite', 'Render'],
-      githubUrl: 'https://github.com/your-username/apple-fest',
+      githubUrl: 'https://github.com/kedaliz/apple-fest',
       liveUrl: 'https://apple-fest.onrender.com/',
     },
   ];
@@ -196,6 +209,9 @@ function App() {
     },
   ];
 
+  const visiblePictures = pictures.slice(0, visiblePhotoCount);
+  const hasMorePictures = visiblePhotoCount < pictures.length;
+
   useEffect(() => {
     fetchProjects();
   }, []);
@@ -214,6 +230,9 @@ function App() {
           title: 'Community Events Directory',
           description: 'A full-stack MERN application for creating, managing, and RSVPing to local community gatherings.',
           imageUrl: '/images/communityimage.jpg',
+          imageFit: 'contain',
+          imagePosition: 'center',
+          imageBackground: '#f0f0f0',
           technologies: ['React', 'Node.js', 'MongoDB Atlas', 'Express',' and Render'],
           githubUrl: 'https://github.com/kedaliz/Community-Events.git',
           liveUrl: 'https://community-events-v5rb.onrender.com'
@@ -301,9 +320,21 @@ function App() {
                 <div className="about-text-content">
                   <h3 className="about-title">Hi, I'm Makeda</h3>
                   <p className="about-text">
-                    I am an Information Science student focused on UX/UI design and tech policy.
-                    I enjoy building thoughtful digital experiences that are accessible, useful, and
-                    people-centered.
+                    I’m an Information Science junior at Cornell University focusing on UX/UI and the ethics of technology. I’m originally from St. Thomas, USVI, and a lot of what I do is inspired by the vibrant culture of the Caribbean and the Black experience.
+                  </p>
+                  <p className="about-text">
+                    Lately, I've been using design, code, and{' '}
+                    <button
+                      type="button"
+                      className="about-text-link"
+                      onClick={() => setActivePage('pictures')}
+                    >
+                      photography
+                    </button>{' '}
+                    as ways to explore storytelling and preservation. Beyond my work with BLAC)BOOK, I’m especially interested in museums, libraries, and digital archives, institutions that safeguard culture and knowledge for future generations while fostering connection and community through shared stories.
+                  </p>
+                  <p className="about-text">
+                    When I’m not working on a project, I’m usually in the kitchen trying out a new recipe, caught up in a contemporary novel, or leaning into Caribbean studies. For me, it’s all just different ways of understanding where we’ve been and finding meaningful ways to move forward.
                   </p>
                 </div>
                 <div className="about-photo-spot" aria-label="Profile picture">
@@ -326,7 +357,7 @@ function App() {
             </section>
 
             <div className="photo-grid">
-              {pictures.map((picture) => (
+              {visiblePictures.map((picture) => (
                 <figure key={picture.id} className="photo-card">
                   <img
                     src={picture.imageUrl}
@@ -338,6 +369,18 @@ function App() {
                 </figure>
               ))}
             </div>
+
+            {hasMorePictures && (
+              <div className="load-more-wrap">
+                <button
+                  type="button"
+                  className="load-more-button"
+                  onClick={() => setVisiblePhotoCount((count) => count + 9)}
+                >
+                  Load More Photos
+                </button>
+              </div>
+            )}
           </>
         )}
       </main>
