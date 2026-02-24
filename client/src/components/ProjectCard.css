@@ -70,6 +70,46 @@
   font-weight: 500;
 }
 
+.case-study-toggle {
+  align-self: flex-start;
+  border: 1px solid #cbd5e1;
+  background: #f8faff;
+  color: #1e3a8a;
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.case-study-toggle:hover {
+  background: #e2e8f0;
+  color: #1e40af;
+}
+
+.project-case-study {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.project-detail {
+  margin: 0;
+  color: #475569;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.project-detail-label {
+  font-weight: 700;
+  color: #1f2937;
+}
+
 .project-links {
   display: flex;
   gap: 1rem;
@@ -106,5 +146,29 @@
 
   .project-image-container {
     background: #2a2a2a;
+  }
+
+  .case-study-toggle {
+    border-color: #334155;
+    background: #0b1220;
+    color: #93c5fd;
+  }
+
+  .case-study-toggle:hover {
+    background: #1e293b;
+    color: #bfdbfe;
+  }
+
+  .project-case-study {
+    border-color: #334155;
+    background: #0f172a;
+  }
+
+  .project-detail {
+    color: #d1d5db;
+  }
+
+  .project-detail-label {
+    color: #f3f4f6;
   }
 }

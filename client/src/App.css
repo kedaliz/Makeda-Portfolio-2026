@@ -35,6 +35,24 @@
   opacity: 0.95;
 }
 
+.resume-button {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  text-decoration: none;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.resume-button:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
 .page-nav {
   margin-top: 1.5rem;
   display: inline-flex;
@@ -88,6 +106,87 @@
   color: #666;
 }
 
+.internship-cta {
+  margin-top: 0.9rem;
+  font-size: 1rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.skills-section {
+  max-width: 1100px;
+  margin: 0 auto 2.2rem;
+}
+
+.skills-quick-section {
+  max-width: 1100px;
+  margin: 0 auto 2.2rem;
+}
+
+.skills-title {
+  font-size: 1.3rem;
+  color: #1f2937;
+  margin-bottom: 0.85rem;
+  text-align: center;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.skills-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.skills-quick-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e6ebf5;
+  box-shadow: 0 10px 22px rgba(30, 41, 59, 0.08);
+  padding: 1rem;
+}
+
+.skills-quick-text {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.skills-category + .skills-category {
+  margin-top: 1.2rem;
+}
+
+.skills-category-title {
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-bottom: 0.7rem;
+}
+
+.skills-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e6ebf5;
+  box-shadow: 0 10px 22px rgba(30, 41, 59, 0.08);
+  padding: 1rem;
+}
+
+.skills-group-title {
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.skills-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
 .about-page {
   max-width: 900px;
   margin: 0 auto 3rem;
@@ -119,6 +218,13 @@
   font-size: 1rem;
   line-height: 1.7;
   color: #555;
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
 }
 
 .about-text + .about-text {
@@ -155,6 +261,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  image-orientation: from-image;
   display: block;
 }
 
@@ -211,6 +318,53 @@
   font-size: 1.125rem;
 }
 
+.contact-section {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  background: white;
+  border-radius: 16px;
+  padding: 1.4rem;
+  border: 1px solid #e6ebf5;
+  box-shadow: 0 12px 26px rgba(30, 41, 59, 0.08);
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 1.2rem;
+  color: #1f2937;
+  margin-bottom: 0.45rem;
+}
+
+.contact-text {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.contact-links {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  border: 1px solid #cbd5e1;
+  color: #1e3a8a;
+  background: #f8faff;
+  text-decoration: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-link:hover {
+  background: #e2e8f0;
+  color: #1e40af;
+}
+
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -235,6 +389,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  image-orientation: from-image;
 }
 
 .load-more-wrap {
@@ -268,6 +423,43 @@
   margin-top: auto;
 }
 
+.footer-meta {
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.sticky-cta {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 30;
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+  padding: 0.35rem;
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.3);
+}
+
+.sticky-cta-link {
+  text-decoration: none;
+  color: #e2e8f0;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(30, 41, 59, 0.85);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sticky-cta-link:hover {
+  background: rgba(59, 130, 246, 0.28);
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .header-title {
     font-size: 2rem;
@@ -291,6 +483,14 @@
     gap: 1.5rem;
   }
 
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-quick-grid {
+    grid-template-columns: 1fr;
+  }
+
   .photo-grid {
     grid-template-columns: 1fr;
   }
@@ -310,6 +510,13 @@
   .about-photo-spot {
     min-height: 220px;
   }
+
+  .sticky-cta {
+    right: 0.75rem;
+    left: 0.75rem;
+    bottom: 0.75rem;
+    justify-content: center;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -323,6 +530,40 @@
 
   .section-description {
     color: #ccc;
+  }
+
+  .internship-cta {
+    color: #cbd5e1;
+  }
+
+  .skills-title {
+    color: #e5e7eb;
+  }
+
+  .skills-card {
+    background: #111827;
+    border-color: #1f2937;
+  }
+
+  .skills-quick-card {
+    background: #111827;
+    border-color: #1f2937;
+  }
+
+  .skills-group-title {
+    color: #93c5fd;
+  }
+
+  .skills-list {
+    color: #d1d5db;
+  }
+
+  .skills-quick-text {
+    color: #d1d5db;
+  }
+
+  .skills-category-title {
+    color: #e5e7eb;
   }
 
   .error-message {
@@ -342,6 +583,30 @@
   .about-page {
     background: #111827;
     border-color: #1f2937;
+  }
+
+  .contact-section {
+    background: #111827;
+    border-color: #1f2937;
+  }
+
+  .contact-title {
+    color: #f3f4f6;
+  }
+
+  .contact-text {
+    color: #d1d5db;
+  }
+
+  .contact-link {
+    border-color: #334155;
+    background: #0b1220;
+    color: #93c5fd;
+  }
+
+  .contact-link:hover {
+    background: #1e293b;
+    color: #bfdbfe;
   }
 
   .about-title {
