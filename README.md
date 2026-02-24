@@ -1,75 +1,105 @@
 # Makeda Portfolio 2026
 
-MERN portfolio application with a React + Vite frontend, Express API, and MongoDB.
+A full-stack portfolio application built with the MERN stack:
+- React + Vite frontend
+- Express + Node.js API
+- MongoDB database
+
+## Project Structure
+
+```text
+client/   # React frontend
+server/   # Express API
+```
 
 ## Tech Stack
-- Frontend: React 19 + Vite
-- Backend: Node.js + Express
-- Database: MongoDB Atlas (or local MongoDB)
 
-## Local Development
+- React 19
+- Vite
+- Node.js + Express
+- MongoDB (Atlas or local)
 
-### 1) Run the API (server)
+## Quick Start (Local)
+
+### 1) Start the API
+
 ```bash
 cd server
 npm install
 cp .env.example .env
 ```
 
-Set `server/.env`:
+Create `server/.env`:
+
 ```dotenv
 MONGODB_URI=<your_mongodb_connection_string>
 PORT=5000
 ```
 
-Start server:
+Run API:
+
 ```bash
 npm start
 ```
 
-### 2) Run the client
+### 2) Start the Frontend
+
 ```bash
 cd client
 npm install
 npm run dev
 ```
 
-Client runs at `http://localhost:5173`.
+Frontend runs at `http://localhost:5173` and calls API at `http://localhost:5000/api` by default.
 
-## Render Deployment
+## Environment Variables
 
-Deploy as two Render services: one Web Service (API) and one Static Site (client).
+### Frontend (`client`)
+- `VITE_API_URL` (optional in local, required in production)
+- Example: `https://your-api.onrender.com/api`
 
-### A) Backend (Render Web Service)
-1. New -> Web Service -> connect this repo.
-2. Configure:
+### Backend (`server`)
+- `MONGODB_URI` (required)
+- `PORT` (optional; defaults to platform-provided port in production)
+
+## Deployment
+
+### Option A: Render (recommended for backend)
+
+Deploy as two services:
+
+1. **Backend Web Service** (`server`)
    - Root Directory: `server`
    - Build Command: `npm install`
    - Start Command: `npm start`
-3. Add environment variables:
-   - `MONGODB_URI` = your MongoDB Atlas URI
-   - `PORT` = `10000` (or leave unset and Render will provide `PORT`)
-4. Deploy and copy your API URL (example: `https://your-api.onrender.com`).
+   - Env vars: `MONGODB_URI`, `PORT` (optional)
 
-### B) Frontend (Render Static Site)
-1. New -> Static Site -> connect this repo.
-2. Configure:
+2. **Frontend Static Site** (`client`)
    - Root Directory: `client`
    - Build Command: `npm install && npm run build`
    - Publish Directory: `dist`
-3. Add environment variable:
-   - `VITE_API_URL` = `https://your-api.onrender.com/api`
-4. Deploy.
+   - Env var: `VITE_API_URL=https://your-api.onrender.com/api`
 
-The client reads `VITE_API_URL` in production and falls back to `http://localhost:5000/api` locally.
+### Option B: Vercel (frontend) + Render/Railway (backend)
 
-## API Routes
+This repo includes a root `vercel.json` to deploy the frontend from `client/`.
+
+1. Import repo into Vercel
+2. Deploy with existing root `vercel.json`
+3. Set `VITE_API_URL` in Vercel project settings to your live backend URL ending in `/api`
+
+> Note: The current Express server (`server/server.js`) is not serverless-ready as-is for Vercel Functions.
+
+## API Endpoints
+
 - `GET /api/projects`
 - `GET /api/projects/:id`
 - `POST /api/projects`
 - `PUT /api/projects/:id`
 - `DELETE /api/projects/:id`
 
-## Notes
-- If the API is unavailable, the frontend can still display fallback sample content.
-- Rate limiting is enabled on `/api/*` routes.
+## Troubleshooting
+
+- If deployed frontend shows no project data, verify `VITE_API_URL` is set correctly.
+- If requests fail from Vercel domain, confirm backend CORS allows your frontend domain.
+- If backend is unavailable, frontend may show fallback sample content.
