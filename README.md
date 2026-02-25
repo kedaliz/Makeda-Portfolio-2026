@@ -66,6 +66,20 @@ Frontend runs at `http://localhost:5173` and calls API at `http://localhost:5000
 
 ### Option A: Render (recommended for backend)
 
+#### One-click with Blueprint (recommended)
+
+This repo includes [render.yaml](render.yaml) so you can deploy both services together.
+
+1. Push latest code to GitHub
+2. In Render, choose **New +** → **Blueprint**
+3. Select this repository and deploy
+4. In the API service, set `MONGODB_URI`
+5. If you changed service names, update frontend `VITE_API_URL` to your API URL ending in `/api`
+
+The blueprint creates:
+- `makeda-portfolio-api` (Web Service from `server/`)
+- `makeda-portfolio-client` (Static Site from `client/`)
+
 Deploy as two services:
 
 1. **Backend Web Service** (`server`)
