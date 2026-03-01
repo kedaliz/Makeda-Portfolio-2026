@@ -10,12 +10,8 @@ function App() {
   const [visiblePhotoCount, setVisiblePhotoCount] = useState(9);
   const resumeLinks = [
     {
-      label: 'Resume (PDF 1)',
-      url: '/Makeda%27s%20Resume.pdf',
-    },
-    {
-      label: 'Resume (PDF 2)',
-      url: '/resume.pdf',
+      label: 'Resume',
+      url: '/Makeda%27s%20Resume%202026.pdf',
     },
   ];
   const contactLinks = {
@@ -447,7 +443,7 @@ function App() {
                     >
                       photography
                     </button>{' '}
-                    as ways to explore storytelling and preservation. Beyond my work with BLAC)BOOK, I’m especially interested in museums, libraries, and digital archives, institutions that safeguard culture and knowledge for future generations while fostering connection and community through shared stories.
+                    as ways to explore storytelling and preservation. Beyond my work with BLACBOOK, I’m especially interested in museums, libraries, and digital archives, institutions that safeguard culture and knowledge for future generations while fostering connection and community through shared stories.
                   </p>
                   <p className="about-text">
                     When I’m not working on a project, I’m usually in the kitchen trying out a new recipe, caught up in a contemporary novel, or leaning into Caribbean studies. For me, it’s all just different ways of understanding where we’ve been and finding meaningful ways to move forward.
