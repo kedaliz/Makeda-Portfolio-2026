@@ -11,7 +11,7 @@ function App() {
   const resumeLinks = [
     {
       label: 'Resume',
-      url: '/Makeda%27s%20Resume%202026.pdf',
+      url: '/Makeda%27s%20Resume%202026%20(3).pdf',
     },
   ];
   const contactLinks = {
