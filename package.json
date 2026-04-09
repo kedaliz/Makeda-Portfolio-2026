@@ -1,0 +1,10 @@
+{
+  "name": "makeda-portfolio-2026",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix client run build",
+    "dev": "npm --prefix client run dev",
+    "start": "npm --prefix server run start"
+  }
+}

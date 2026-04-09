@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: makeda-portfolio-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: NODE_ENV
+        value: production
+
+  - type: static
+    name: makeda-portfolio-client
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://makeda-portfolio-api.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
