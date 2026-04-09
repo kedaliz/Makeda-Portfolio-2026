@@ -358,7 +358,7 @@ function App() {
                 Explore my work and see what I built
               </p>
               <p className="internship-cta">
-                Open to Summer/Fall internships in UX/UI, product design, and tech policy.
+                Product Design & Tech Policy Intern | Open to Summer/Fall 2026 opportunities in UX/UI and Library/Archival Science."
               </p>
             </section>
 
