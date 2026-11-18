@@ -8,8 +8,14 @@ const projectRoutes = require('./routes/projectRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB();
+// The portfolio can run with its local featured projects without MongoDB.
+// Connect when a database URI is configured, but keep the API server available
+// for local frontend work when it is not.
+if (process.env.MONGODB_URI) {
+  connectDB();
+} else {
+  console.warn('MONGODB_URI is not configured; starting without MongoDB.');
+}
 
 // Rate limiting middleware
 const limiter = rateLimit({

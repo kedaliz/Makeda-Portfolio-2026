@@ -1,15 +1,11 @@
-import { useState } from 'react';
 import './ProjectCard.css';
 
-const ProjectCard = ({ project }) => {
-  const [showDetails, setShowDetails] = useState(false);
+const ProjectCard = ({ project, onOpen }) => {
   const imageStyle = {
     objectFit: project.imageFit || 'cover',
     objectPosition: project.imagePosition || 'center',
     backgroundColor: project.imageBackground || 'transparent',
   };
-  const hasCaseStudy = Boolean(project.problem || project.role || project.result);
-
   return (
     <div className="project-card">
       <div className="project-image-container">
@@ -38,37 +34,9 @@ const ProjectCard = ({ project }) => {
           </div>
         )}
 
-        {hasCaseStudy && (
-          <>
-            <button
-              type="button"
-              className="case-study-toggle"
-              onClick={() => setShowDetails((isOpen) => !isOpen)}
-            >
-              {showDetails ? 'Hide Details' : 'View Details'}
-            </button>
-
-            {showDetails && (
-              <div className="project-case-study">
-                {project.problem && (
-                  <p className="project-detail">
-                    <span className="project-detail-label">Problem:</span> {project.problem}
-                  </p>
-                )}
-                {project.role && (
-                  <p className="project-detail">
-                    <span className="project-detail-label">My Role:</span> {project.role}
-                  </p>
-                )}
-                {project.result && (
-                  <p className="project-detail">
-                    <span className="project-detail-label">Result:</span> {project.result}
-                  </p>
-                )}
-              </div>
-            )}
-          </>
-        )}
+        <button type="button" className="case-study-toggle" onClick={() => onOpen(project)}>
+          Open case study <span aria-hidden="true">↗</span>
+        </button>
         
         <div className="project-links">
           {project.githubUrl && (
