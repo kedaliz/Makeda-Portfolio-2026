@@ -1,0 +1,529 @@
+import { useState, useEffect } from 'react';
+import ProjectCard from './components/ProjectCard';
+import ProjectDetail from './components/ProjectDetail';
+import { getAllProjects } from './services/api';
+import { featuredProjects, findProjectByRoute, mergeProjects } from './projects';
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-600.css';
+import '@fontsource/dm-sans/latin-700.css';
+import '@fontsource/space-grotesk/latin-400.css';
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/space-grotesk/latin-700.css';
+import './App.css';
+import './enhancements.css';
+import './warm-colors.css';
+import './project-work.css';
+import './portfolio-theme.css';
+
+const featuredOrder = ['gymling-gym', 'housing-transparency', 'bi-learning-analytics'];
+
+function App() {
+  const [projects, setProjects] = useState(featuredProjects);
+  const [loading, setLoading] = useState(true);
+  const [activePage, setActivePage] = useState('website');
+  const [route, setRoute] = useState(() => window.location.hash);
+  const [visiblePhotoCount, setVisiblePhotoCount] = useState(9);
+  const resumeLinks = [
+    {
+      label: 'Resume',
+      url: '/Makeda%27s%20Resume%202026%20(3).pdf',
+    },
+  ];
+  const contactLinks = {
+    email: 'mailto:mlc359@cornell.edu',
+    linkedin: 'https://www.linkedin.com/in/makeda-elizabeth-cabey-605745269',
+    github: 'https://github.com/kedaliz',
+  };
+  const lastUpdated = 'February 24, 2026';
+  const compactSkills = {
+    Design: ['UX/UI Design', 'Wireframing', 'Responsive Design'],
+    Frontend: ['React', 'JavaScript', 'HTML/CSS', 'Tailwind CSS'],
+    'Backend & Data': ['Node.js', 'Express.js', 'MongoDB', 'SQL'],
+    Leadership: ['Creative Direction', 'Team Management', 'Strategic Planning'],
+  };
+  const skillsSnapshot = {
+    'Technical & Design': {
+      Design: ['UX/UI Design', 'Wireframing', 'Visual Hierarchy', 'Responsive Design'],
+      Tools: ['Figma', 'Adobe Photoshop', 'Adobe Lightroom', 'Final Cut Pro', 'Canva'],
+      Frontend: ['React', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
+      'Backend & Data': ['Node.js', 'Express.js', 'MongoDB', 'SQL', 'Python', 'Pandas'],
+      Research: ['User Research', 'Accessibility Testing', 'Information Architecture', 'Content Analysis'],
+    },
+    'Leadership & Operations': {
+      Management: ['Creative Direction', 'Team Management', 'Task Delegation', 'Project Oversight'],
+      Strategy: ['Budgeting', 'Strategic Planning', 'Event Logistics', 'Fiscal Oversight'],
+      Communication: ['Public Speaking', 'Conflict Resolution', 'Interpersonal Collaboration', 'Audience Engagement'],
+      'Technical Ops': ['Real-time Troubleshooting', 'Multi-camera Livestreaming', 'Digital Archiving'],
+    },
+  };
+  const pictures = [
+    {
+      id: '1',
+      title: 'Graduation Portrait',
+      altText: 'Makeda Elizabeth Cabey in formal graduation attire, smiling at the camera during her graduation ceremony',
+      imageUrl: 'images/DSC02427.webp',
+    },
+    {
+      id: '2',
+      title: 'Graduation Celebration',
+      altText: 'Celebratory moment with family and friends gathered together at graduation, capturing joy and togetherness',
+      imageUrl: 'images/DSC02581.webp',
+    },
+    {
+      id: '3',
+      title: 'Candid Portrait',
+      altText: 'Natural candid portrait showing authentic expression and moment of reflection',
+      imageUrl: 'images/IMG_9847-2.webp',
+    },
+    {
+      id: '4',
+      title: 'Lifestyle Photography',
+      altText: 'Lifestyle photography capturing everyday moments and genuine human connection',
+      imageUrl: 'images/IMG_9219.webp',
+    },
+     {
+      id: '5',
+      title: 'Outdoor Scene',
+      altText: 'Outdoor photography featuring natural landscape and atmospheric lighting',
+      imageUrl: 'images/IMG_8649.webp',
+    },
+     {
+      id: '6',
+      title: 'Nature Moment',
+      altText: 'Nature-focused photography capturing details and beauty of the natural environment',
+      imageUrl: 'images/IMG_8240.webp',
+    },
+    {
+      id: '7',
+      title: 'Photography Detail',
+      altText: 'Close-up detail photography showing texture and intimate perspective',
+      imageUrl: 'images/IMG_0254.webp',
+    },
+    {
+      id: '8',
+      title: 'Portrait Study',
+      altText: 'Portrait photography study showcasing lighting, expression, and human presence',
+      imageUrl: 'images/IMG_0075.webp',
+    },
+    {
+      id: '9',
+      title: 'Moment Captured',
+      altText: 'Documentary-style photography capturing a fleeting moment and human emotion',
+      imageUrl: 'images/IMG_0098.webp',
+    },
+    {
+      id: '10',
+      title: 'Photography Series',
+      altText: 'Part of a photography series exploring themes of storytelling and visual narrative',
+      imageUrl: 'images/IMG_1405.webp',
+    },
+    {
+      id: '11',
+      title: 'Photography Composition',
+      altText: 'Carefully composed photography demonstrating visual balance and artistic perspective',
+      imageUrl: 'images/IMG_0270 (1).webp',
+    },
+
+    {
+      id: '14',
+      title: 'Photography Collection',
+      altText: 'Photography from portfolio collection showcasing varied subject matter and artistic approach',
+      imageUrl: 'images/IMG_1785.webp',
+    },
+    {
+      id: '15',
+      title: 'Portrait Detail',
+      imageUrl: 'images/IMG_1610.webp',
+    },
+    {
+      id: '16',
+      title: 'Photography Work',
+      imageUrl: 'images/IMG_0048.webp',
+    },
+    {
+      id: '17',
+      title: 'Lifestyle Moment',
+      imageUrl: 'images/IMG_9850-2.webp',
+    },
+    {
+      id: '18',
+      title: 'Candid Photography',
+      imageUrl: 'images/IMG_1058.webp',
+    },
+    {
+      id: '19',
+      title: 'Photography Series',
+      imageUrl: 'images/IMG_1400.webp',
+    },
+    {
+      id: '20',
+      title: 'Photography Detail',
+      imageUrl: 'images/IMG_1402.webp',
+    },
+    {
+      id: '21',
+      title: 'Photography Moment',
+      imageUrl: 'images/IMG_2016.webp',
+    },
+    {
+      id: '22',
+      title: 'Photography Work',
+      imageUrl: 'images/IMG_2856.webp',
+    },
+    {
+      id: '23',
+      title: 'Photography Detail',
+      imageUrl: 'images/IMG_2891.webp',
+    },
+    {
+      id: '24',
+      title: 'Photography Series',
+      imageUrl: 'images/IMG_4947.webp',
+    },
+    {
+      id: '25',
+      title: 'Photography Moment',
+      imageUrl: 'images/IMG_6820.jpg',
+    },
+     {
+      id: '26',
+      title: 'Photography Detail',
+      imageUrl: 'images/IMG_4964.webp',
+    },
+     {
+      id: '27',
+      title: 'Photography Work',
+      imageUrl: 'images/IMG_4975.webp',
+    },
+     {
+      id: '28',
+      title: 'Photography Series',
+      imageUrl: 'images/IMG_4980.webp',
+    },
+     {
+      id: '29',
+      title: 'Photography Moment',
+      imageUrl: 'images/IMG_4981.webp',
+    },
+     {
+      id: '30',
+      title: 'Photography Detail',
+      imageUrl: 'images/IMG_4994.webp',
+    },
+     {
+      id: '31',
+      title: 'Photography Series',
+      imageUrl: 'images/IMG_5024.webp',
+    },
+    {
+      id: '32',
+      title: 'Photography Work',
+      imageUrl: 'images/IMG_9715.jpg',
+    },
+    {
+      id: '33',
+      title: 'Photography Detail',
+      imageUrl: 'images/IMG_9730.jpg',
+    },
+  ];
+
+  const visiblePictures = pictures.slice(0, visiblePhotoCount);
+  const hasMorePictures = visiblePhotoCount < pictures.length;
+  const isProjectRoute = route.startsWith('#/work/');
+  const selectedProject = isProjectRoute
+    ? findProjectByRoute(projects, route)
+    : null;
+  const displayProjects = [...projects].sort((a, b) => {
+    const rank = (project) => {
+      const index = featuredOrder.indexOf(project._id);
+      return index < 0 ? featuredOrder.length : index;
+    };
+    return rank(a) - rank(b);
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setRoute(window.location.hash);
+      setActivePage('website');
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    getAllProjects()
+      .then((data) => {
+        if (active) setProjects(mergeProjects(data));
+      })
+      .catch((error) => console.error('Unable to load additional projects:', error))
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => { active = false; };
+  }, []);
+
+  const navigateTo = (page) => {
+    if (window.location.hash) {
+      window.history.pushState(null, '', `${window.location.pathname}${window.location.search}`);
+      setRoute('');
+    }
+    setActivePage(page);
+    window.scrollTo(0, 0);
+  };
+
+  return (
+    <div className="app">
+      <header className="header">
+        <div className="header-content">
+          <nav className="header-nav">
+            <div className="nav-left">
+              <a href="/" className="nav-brand">MAKEDA ELIZABETH CABEY</a>
+            </div>
+            <div className="nav-right">
+              <button
+                type="button"
+                className={`nav-link ${activePage === 'website' ? 'active' : ''}`}
+                onClick={() => navigateTo('website')}
+              >
+                WORK
+              </button>
+              <button
+                type="button"
+                className={`nav-link ${activePage === 'pictures' ? 'active' : ''}`}
+                onClick={() => navigateTo('pictures')}
+              >
+                PHOTOGRAPHY
+              </button>
+              <button
+                type="button"
+                className={`nav-link ${activePage === 'about' ? 'active' : ''}`}
+                onClick={() => navigateTo('about')}
+              >
+                ABOUT
+              </button>
+              <a href="/Makeda%27s%20Resume%202026%20(3).pdf" target="_blank" rel="noopener noreferrer" className="nav-link">
+                RESUME
+              </a>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main className="main-content">
+        {isProjectRoute ? (
+          selectedProject ? (
+            <ProjectDetail project={selectedProject} />
+          ) : loading ? (
+            <p role="status">Loading project...</p>
+          ) : (
+            <section className="hero-section">
+              <h1 className="section-title">Project not found</h1>
+              <a href="#/">Back to Work</a>
+            </section>
+          )
+        ) : activePage === 'website' ? (
+          <>
+            <section className="intro-section">
+              <div className="intro-content">
+                <h1 className="intro-name">Makeda Elizabeth Cabey</h1>
+                <h2 className="intro-headline">Designing ways for people to find, understand, and keep what matters.</h2>
+                <p className="intro-tagline">
+                  I’m an Information Science student from St. Thomas, USVI creating thoughtful digital experiences for culture, accessibility, community, and social impact.
+                </p>
+                
+                <div className="intro-info">
+                  <div className="info-block">
+                    <p className="info-label">CURRENTLY</p>
+                    <p className="info-text">Applying for grad school & seeking post-grad opportunities</p>
+                  </div>
+                  
+                  <div className="info-block">
+                    <p className="info-label">PASSIONATE ABOUT</p>
+                    <p className="info-text">UX/UI & product design, user research, accessibility, information architecture, digital archives, cultural preservation, data visualization, technology & society, and full-stack development.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="projects-section">
+              <h2 className="section-title">Featured Work</h2>
+              <p className="section-description">
+                Selected projects spanning full-stack development, UX design, and research
+              </p>
+            </section>
+
+            <div className="work-grid">
+              {displayProjects.map((project) => (
+                <ProjectCard key={project._id} project={project} />
+              ))}
+            </div>
+
+            <section className="contact-section" aria-label="Contact">
+              <h3 className="contact-title">Let&apos;s Connect</h3>
+              <p className="contact-text">
+                Reach out for internship opportunities, collaborations, or conversations about design and digital storytelling.
+              </p>
+              <div className="contact-links">
+                <a href={contactLinks.email} className="contact-link">Email</a>
+                <a href={contactLinks.linkedin} target="_blank" rel="noopener noreferrer" className="contact-link">LinkedIn</a>
+                <a href={contactLinks.github} target="_blank" rel="noopener noreferrer" className="contact-link">GitHub</a>
+              </div>
+            </section>
+
+            <section className="skills-quick-section" aria-label="Skills summary">
+              <h3 className="skills-title">Skills Snapshot</h3>
+              <div className="skills-quick-grid">
+                {Object.entries(compactSkills).map(([group, items]) => (
+                  <article key={group} className="skills-quick-card">
+                    <h4 className="skills-group-title">{group}</h4>
+                    <p className="skills-quick-text">{items.join(' • ')}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </>
+        ) : activePage === 'about' ? (
+          <>
+            <section className="hero-section">
+              <h2 className="section-title">About Me</h2>
+              <p className="section-description">
+                Get to know my background, interests, and goals.
+              </p>
+            </section>
+
+            <section className="about-page" aria-label="About Makeda">
+              <div className="about-content">
+                <div className="about-text-content">
+                  <h3 className="about-title">Hi, I'm Makeda</h3>
+                  <div className="about-actions">
+                    {resumeLinks.map((resume) => (
+                      <a
+                        key={resume.url}
+                        href={resume.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="resume-button"
+                      >
+                        {resume.label}
+                      </a>
+                    ))}
+                  </div>
+                  <p className="about-text">
+                    I’m an Information Science junior at Cornell University focusing on UX/UI and Tech Ethics Law, and Policy I’m originally from St. Thomas, USVI, and a lot of what I do is inspired by the vibrant culture of the Caribbean and the Black experience.
+                  </p>
+                  <p className="about-text">
+                    Lately, I've been using design, code, and{' '}
+                    <button
+                      type="button"
+                      className="about-text-link"
+                      onClick={() => navigateTo('pictures')}
+                    >
+                      photography
+                    </button>{' '}
+                    as ways to explore storytelling and preservation. Beyond my work with BLACBOOK, I’m especially interested in museums, libraries, and digital archives, institutions that safeguard culture and knowledge for future generations while fostering connection and community through shared stories.
+                  </p>
+                  <p className="about-text">
+                    When I’m not working on a project, I’m usually in the kitchen trying out a new recipe, caught up in a contemporary novel, or leaning into Caribbean studies. For me, it’s all just different ways of understanding where we’ve been and finding meaningful ways to move forward.
+                  </p>
+                </div>
+                <div className="about-photo-spot" aria-label="Profile picture">
+                  <img
+                    src="images/IMG_1720.webp"
+                    alt="Makeda portrait"
+                    className="about-photo-image"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section className="skills-section" aria-label="Detailed skills snapshot">
+              <h3 className="skills-title">Skills Snapshot</h3>
+              {Object.entries(skillsSnapshot).map(([section, groups]) => (
+                <div key={section} className="skills-category">
+                  <h4 className="skills-category-title">{section}</h4>
+                  <div className="skills-grid">
+                    {Object.entries(groups).map(([group, items]) => (
+                      <article key={group} className="skills-card">
+                        <h5 className="skills-group-title">{group}</h5>
+                        <ul className="skills-list">
+                          {items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </section>
+          </>
+        ) : activePage === 'pictures' ? (
+          <>
+            <section className="hero-section">
+              <h2 className="section-title">My Photography</h2>
+              <p className="section-description">
+                A small gallery of my past work in photography, showcasing moments of joy, beauty, and connection.
+              </p>
+            </section>
+
+            <div className="photo-grid">
+              {visiblePictures.map((picture) => (
+                <figure key={picture.id} className="photo-card">
+                  <img
+                    src={picture.imageUrl}
+                    alt={picture.altText || picture.title}
+                    className="photo-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+              ))}
+            </div>
+
+            {hasMorePictures && (
+              <div className="load-more-wrap">
+                <button
+                  type="button"
+                  className="load-more-button"
+                  onClick={() => setVisiblePhotoCount((count) => count + 9)}
+                >
+                  Load More Photos
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <section className="hero-section">
+              <h2 className="section-title">Page Not Found</h2>
+              <p className="section-description">
+                The page you're looking for doesn't exist.
+              </p>
+            </section>
+          </>
+        )}
+      </main>
+
+      <div className="sticky-cta" aria-label="Quick actions">
+        <a href={contactLinks.email} className="sticky-cta-link">Contact</a>
+        <a
+          href={resumeLinks[0].url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="sticky-cta-link"
+        >
+          Resume
+        </a>
+      </div>
+
+      <footer className="footer">
+        <p>&copy; 2026 Makeda's Portfolio. All rights reserved.</p>
+        <p className="footer-meta">Last updated: {lastUpdated}</p>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
