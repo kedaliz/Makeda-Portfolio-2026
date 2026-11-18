@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Learning analytics dashboard preview</title>
+  <desc id="desc">A blue dashboard with summary cards, a scatter plot, and a sentiment timeline.</desc>
+  <rect width="1200" height="700" rx="28" fill="#0f172a"/>
+  <rect x="44" y="42" width="1112" height="616" rx="20" fill="#eaf2ff"/>
+  <text x="82" y="96" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#0f172a">BI Learning Analytics</text>
+  <text x="82" y="128" font-family="Arial, sans-serif" font-size="16" fill="#475569">Instructor dashboard: class engagement and performance</text>
+  <g>
+    <rect x="82" y="166" width="238" height="92" rx="12" fill="#1677b8"/>
+    <rect x="338" y="166" width="238" height="92" rx="12" fill="#10a66a"/>
+    <rect x="594" y="166" width="238" height="92" rx="12" fill="#df5545"/>
+    <rect x="850" y="166" width="238" height="92" rx="12" fill="#6957ae"/>
+    <text x="104" y="208" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#fff">16.8</text>
+    <text x="104" y="236" font-family="Arial, sans-serif" font-size="15" fill="#fff">Class average</text>
+    <text x="360" y="208" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#fff">75%</text>
+    <text x="360" y="236" font-family="Arial, sans-serif" font-size="15" fill="#fff">Attendance rate</text>
+    <text x="616" y="208" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#fff">37</text>
+    <text x="616" y="236" font-family="Arial, sans-serif" font-size="15" fill="#fff">At-risk students</text>
+    <text x="872" y="208" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#fff">88%</text>
+    <text x="872" y="236" font-family="Arial, sans-serif" font-size="15" fill="#fff">Survey completion</text>
+  </g>
+  <rect x="82" y="290" width="690" height="318" rx="14" fill="#fff"/>
+  <text x="108" y="328" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">Attendance vs. performance</text>
+  <line x1="140" y1="552" x2="720" y2="552" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="140" y1="370" x2="140" y2="552" stroke="#94a3b8" stroke-width="2"/>
+  <g fill="#e06b62" opacity=".8">
+    <circle cx="210" cy="500" r="8"/><circle cx="285" cy="472" r="8"/><circle cx="350" cy="440" r="8"/><circle cx="410" cy="492" r="8"/>
+  </g>
+  <g fill="#55a868" opacity=".85">
+    <circle cx="430" cy="410" r="8"/><circle cx="500" cy="390" r="8"/><circle cx="565" cy="420" r="8"/><circle cx="650" cy="378" r="8"/>
+  </g>
+  <g fill="#36a9c5" opacity=".85">
+    <circle cx="520" cy="475" r="8"/><circle cx="600" cy="450" r="8"/><circle cx="680" cy="430" r="8"/>
+  </g>
+  <text x="350" y="588" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Attendance rate</text>
+  <text x="102" y="462" transform="rotate(-90 102 462)" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Quiz score</text>
+  <rect x="798" y="290" width="290" height="318" rx="14" fill="#fff"/>
+  <text x="824" y="328" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">Class sentiment</text>
+  <polyline points="826,520 852,470 878,490 904,420 930,455 956,395 982,440 1008,405 1034,430 1060,380" fill="none" stroke="#1d4ed8" stroke-width="5"/>
+  <path d="M826 520 L852 470 L878 490 L904 420 L930 455 L956 395 L982 440 L1008 405 L1034 430 L1060 380 L1060 550 L826 550 Z" fill="#bfdbfe" opacity=".65"/>
+  <text x="826" y="582" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Session timeline</text>
+</svg>

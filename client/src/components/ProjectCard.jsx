@@ -21,6 +21,10 @@ const ProjectCard = ({ project }) => {
         />
       </div>
       <div className="project-content">
+        <div className="project-card-topline">
+          <span className="project-index">Selected project</span>
+          <span className="project-arrow" aria-hidden="true">↗</span>
+        </div>
         <h3 className="project-title">{project.title}</h3>
         <p className="project-description">{project.description}</p>
         
@@ -85,6 +89,16 @@ const ProjectCard = ({ project }) => {
               className="project-link"
             >
               Live Demo
+            </a>
+          )}
+          {project.prototypeUrl && (
+            <a
+              href={project.prototypeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-link"
+            >
+              Figma Prototype
             </a>
           )}
         </div>

@@ -58,6 +58,11 @@ function App() {
         role: 'I developed the full-stack architecture (MERN), designing the database schema and a personalized user dashboard.',
         result: 'Built a functional ecosystem that supports real-time RSVP tracking and automated event categorization to help users discover local gatherings easily.',
       },
+      'bi learning analytics dashboard': {
+        problem: 'Instructors need a clear way to identify engagement and performance patterns in clicker data, while students need private, actionable feedback about their progress.',
+        role: 'As part of Team R, I helped translate the assignment goals into instructor and student dashboard views with R Shiny, summary metrics, and comparative visualizations.',
+        result: 'Produced a working dashboard prototype with attendance-versus-performance analysis, sentiment trends, student quiz comparisons, weak-area analysis, and next-step resources.',
+      },
     },
   };
 
@@ -105,19 +110,94 @@ function App() {
       githubUrl: 'https://github.com/kedaliz/apple-fest',
       liveUrl: 'https://apple-fest.onrender.com/',
     },
+    {
+      _id: 'community-events-directory',
+      title: 'Community Events Directory',
+      description: 'A full-stack MERN application for discovering local gatherings, managing events, and tracking RSVPs in one community-centered experience.',
+      imageUrl: '/images/communityimage.webp',
+      imageFit: 'contain',
+      imagePosition: 'center',
+      imageBackground: '#f0f0f0',
+      technologies: ['React', 'Node.js', 'Express', 'MongoDB'],
+      githubUrl: 'https://github.com/kedaliz/Community-Events.git',
+      liveUrl: 'https://community-events-v5rb.onrender.com',
+      problem: 'Local community groups struggle to manage RSVPs and event visibility across fragmented social platforms.',
+      role: 'I developed the full-stack MERN architecture, designed the database schema, and built a personalized user dashboard.',
+      result: 'Built a functional ecosystem with RSVP tracking and event categorization to make local gatherings easier to discover.',
+    },
+    {
+      _id: 'gymling',
+      title: 'Gymling Gym',
+      description: 'A mobile fitness and AR companion app designed to reduce gym intimidation at Cornell’s Noyes Fitness Center through spatial navigation, equipment form guides, and gamified progression. INFO 3450, Fall 2026.',
+      imageUrl: '/images/Untitled design (7).webp',
+      imageFit: 'contain',
+      imagePosition: 'center',
+      imageBackground: '#f0f0f0',
+      technologies: ['Figma', 'User Research', 'HCI Prototyping', 'AR'],
+      problem: 'New gym users can feel overwhelmed by unfamiliar equipment, confusing layouts, and uncertainty about how to get started. Contextual interviews showed that the first visit is especially difficult when people do not know where to go or how to use the equipment.',
+      role: 'I contributed contextual research, persona development, onboarding flows, spatial navigation, and iterative usability testing for the high-fidelity prototype.',
+      result: 'Created a high-fidelity Figma prototype that makes the gym feel more approachable through visual guidance, equipment support, and progress-based motivation.',
+      prototypeUrl: 'https://www.figma.com/design/9OKq6DH2Zxlj85XFYgzZlC/a4-group-prototype?node-id=0-1&t=wa9OKKqz2wRCauOl-1',
+    },
+    {
+      _id: 'bi-learning-analytics',
+      title: 'BI Learning Analytics Dashboard',
+      description: 'A two-sided R Shiny dashboard that helps instructors understand clicker engagement and helps students reflect on quiz performance. INFO 4100, Team R.',
+      imageUrl: '/images/clicker-dashboard-cover.svg',
+      imageFit: 'cover',
+      imagePosition: 'center',
+      technologies: ['R Shiny', 'R', 'ggplot2', 'Learning Analytics'],
+      problem: 'Instructors need a clear way to identify engagement and performance patterns in clicker data, while students need private, actionable feedback about their progress.',
+      role: 'As part of Team R, I helped translate the assignment goals into instructor and student dashboard views with R Shiny, summary metrics, and comparative visualizations.',
+      result: 'Produced a working dashboard prototype with attendance-versus-performance analysis, sentiment trends, student quiz comparisons, weak-area analysis, and next-step resources.',
+    },
+    {
+      _id: 'collegetown-housing',
+      title: 'Collegetown Off-Campus Housing Transparency Platform',
+      description: 'A product concept for Cornell undergraduates that makes off-campus rental searches clearer, safer, and easier to compare. INFO 4125, Fall 2026.',
+      imageUrl: '/images/communityimage.webp',
+      imageFit: 'contain',
+      imagePosition: 'center',
+      imageBackground: '#f0f0f0',
+      technologies: ['UX Research', 'Figma', 'Product Scoping', 'System Design'],
+      githubUrl: 'https://github.com/kedaliz/-the-info-4125-project',
+      prototypeUrl: 'https://www.figma.com/design/UWUZiCPq12OEhWXGSmUkQL/INFO-4215-Group-5-Solution?node-id=0-1',
+      problem: 'Cornell undergraduates often sign leases without reliable information about total costs, housing conditions, or landlord responsiveness. This information gap can disproportionately affect lower-income, international, and disabled students.',
+      role: 'As part of Team 5, I contributed to the research and product design for a centralized housing platform covering Collegetown, Cayuga Heights, and Downtown. The experience includes an interactive map, filters, favorites, property scorecards, anonymous surveys, reviews, contact details, and a verified FAQ.',
+      result: 'Designed and evaluated a prototype intended to help students compare rent, fees, amenities, safety, cleanliness, maintenance response, and value before signing a lease. The project targeted at least 25 reviews across 10 properties and an 85% user-satisfaction goal.',
+    },
+    {
+      _id: 'creative-business-longevity',
+      title: 'Post-Pandemic Creative Business Longevity Analysis',
+      description: 'A reproducible analysis of municipal business registry data exploring post-pandemic survival trends across Los Angeles creative industries. INFO 2951, Spring 2026.',
+      imageUrl: '/images/Untitled design (8).webp',
+      imageFit: 'contain',
+      imagePosition: 'center',
+      imageBackground: '#f0f0f0',
+      technologies: ['R', 'Tidyverse', 'Tidymodels', 'Quarto'],
+      problem: 'Creative businesses experienced uneven recovery after the pandemic, making it important to understand which industries and communities were most resilient.',
+      role: 'I cleaned, wrangled, and modeled municipal business registry datasets using a reproducible Quarto workflow.',
+      result: 'Published data-driven findings about longevity trends in Los Angeles creative industries.',
+    },
+    {
+      _id: 'info-4340',
+      title: 'INFO 4340 Project',
+      description: 'An Information Science project demonstrating research, product thinking, and applied technical work from INFO 4340.',
+      imageUrl: '/images/meme-generator-cover.webp',
+      imageFit: 'contain',
+      imagePosition: 'center',
+      imageBackground: '#f0f0f0',
+      technologies: ['Information Science', 'Research', 'Product Design'],
+    },
   ];
 
   const mergeProjects = (projectList = []) => {
-    const normalizedExistingLiveUrls = new Set(
-      projectList
-        .map((project) => project.liveUrl?.trim().toLowerCase())
-        .filter(Boolean)
+    const existingKeys = new Set(
+      projectList.map((project) => project._id || normalizeTitle(project.title))
     );
-
-    const missingFeatured = featuredProjects.filter((project) => {
-      const liveUrl = project.liveUrl?.trim().toLowerCase();
-      return !liveUrl || !normalizedExistingLiveUrls.has(liveUrl);
-    });
+    const missingFeatured = featuredProjects.filter(
+      (project) => !existingKeys.has(project._id || normalizeTitle(project.title))
+    );
 
     return [...missingFeatured, ...projectList].map(attachCaseStudy);
   };
@@ -319,24 +399,28 @@ function App() {
     <div className="app">
       <header className="header">
         <div className="header-content">
-          <h1 className="header-title">Makeda's Portfolio</h1>
-          <p className="header-subtitle">
-            Information Science Student | UX/UI Design & Tech Policy
-          </p>
-          <div className="page-nav" role="tablist" aria-label="Portfolio pages">
+          <div className="header-topline">
+            <button
+              type="button"
+              className="brand-mark"
+              onClick={() => setActivePage('website')}
+            >
+              MAKEDA ELIZABETH CABEY
+            </button>
+            <div className="page-nav" role="tablist" aria-label="Portfolio pages">
             <button
               type="button"
               className={`page-nav-button ${activePage === 'website' ? 'active' : ''}`}
               onClick={() => setActivePage('website')}
             >
-              Website
+              Work
             </button>
             <button
               type="button"
               className={`page-nav-button ${activePage === 'about' ? 'active' : ''}`}
               onClick={() => setActivePage('about')}
             >
-              About Me
+              About
             </button>
             <button
               type="button"
@@ -345,6 +429,22 @@ function App() {
             >
               Photography
             </button>
+            <a
+              href={resumeLinks[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="page-nav-link"
+            >
+              Resume
+            </a>
+            </div>
+          </div>
+          <div className="header-intro">
+            <p className="header-kicker">Information Science · UX/UI · Digital archives</p>
+            <h1 className="header-title">Designing ways for people to find, understand, and keep what matters.</h1>
+            <p className="header-subtitle">
+              I’m Makeda, an Information Science student from St. Thomas, USVI creating thoughtful digital experiences for culture, access, and community.
+            </p>
           </div>
         </div>
       </header>
@@ -353,9 +453,10 @@ function App() {
         {activePage === 'website' ? (
           <>
             <section className="hero-section">
-              <h2 className="section-title">My Projects</h2>
+              <p className="section-kicker">Selected work · 2024—2026</p>
+              <h2 className="section-title">Featured work</h2>
               <p className="section-description">
-                Explore my work and see what I built
+                A mix of full-stack builds, UX research, product concepts, and data storytelling.
               </p>
               <p className="internship-cta">
                  Open to Summer/Fall 2026 opportunities in UX/UI and Library/Archival Sciences.
@@ -408,7 +509,8 @@ function App() {
         ) : activePage === 'about' ? (
           <>
             <section className="hero-section">
-              <h2 className="section-title">About Me</h2>
+              <p className="section-kicker">A little context</p>
+              <h2 className="section-title">About me</h2>
               <p className="section-description">
                 Get to know my background, interests, and goals.
               </p>
@@ -483,7 +585,8 @@ function App() {
         ) : (
           <>
             <section className="hero-section">
-              <h2 className="section-title">My Photography</h2>
+              <p className="section-kicker">Visual notes</p>
+              <h2 className="section-title">Photography</h2>
               <p className="section-description">
                 A small gallery of my past work in photography, showcasing moments of joy, beauty, and connection.
               </p>

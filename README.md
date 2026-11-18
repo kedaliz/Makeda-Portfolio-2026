@@ -5,6 +5,19 @@ A full-stack portfolio application built with the MERN stack:
 - Express + Node.js API
 - MongoDB database
 
+## Portfolio Projects
+
+The portfolio includes software projects from GitHub and academic case studies:
+
+- Community Events Platform — React, Node.js, Express, MongoDB
+- Meme Studio — React, Vite, and responsive UI
+- Apple Fest — event information architecture and web experience
+- INFO 4340 project — Vue 3 and Vite
+- Gymling Gym — Figma, user research, HCI prototyping, and AR concepts
+- BI Learning Analytics Dashboard — R Shiny, R, ggplot2, and comparative learning analytics
+- Collegetown Off-Campus Housing Transparency Platform — Figma, UX research, surveys, product scoping, and system design for transparent rent, reviews, property scorecards, maps, favorites, and verified FAQs
+- Post-Pandemic Creative Business Longevity Analysis — R, Tidyverse, Tidymodels, and Quarto
+
 ## Project Structure
 
 ```text
