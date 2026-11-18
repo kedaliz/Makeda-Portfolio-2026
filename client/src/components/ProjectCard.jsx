@@ -19,7 +19,6 @@ const ProjectCard = ({ project, onOpen }) => {
       <div className="project-content">
         <div className="project-card-topline">
           <span className="project-index">Selected project</span>
-          <span className="project-arrow" aria-hidden="true">↗</span>
         </div>
         <h3 className="project-title">{project.title}</h3>
         <p className="project-description">{project.description}</p>
@@ -35,7 +34,7 @@ const ProjectCard = ({ project, onOpen }) => {
         )}
 
         <button type="button" className="case-study-toggle" onClick={() => onOpen(project)}>
-          Open case study <span aria-hidden="true">↗</span>
+          Open case study
         </button>
         
         <div className="project-links">

@@ -21,9 +21,9 @@ function ProjectDetail({ project, onBack }) {
           ))}
         </div>
         <div className="project-detail-links">
-          {project.githubUrl && <a className="project-link" href={project.githubUrl} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}
-          {project.liveUrl && <a className="project-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Live demo ↗</a>}
-          {project.prototypeUrl && <a className="project-link" href={project.prototypeUrl} target="_blank" rel="noopener noreferrer">Prototype ↗</a>}
+          {project.githubUrl && <a className="project-link" href={project.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}
+          {project.liveUrl && <a className="project-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Live demo</a>}
+          {project.prototypeUrl && <a className="project-link" href={project.prototypeUrl} target="_blank" rel="noopener noreferrer">Prototype</a>}
         </div>
       </div>
 
@@ -267,31 +267,26 @@ function App() {
         '/images/uploads/business-by-sector.png',
       ],
     },
-    {
-      _id: 'info-4340',
-      title: 'INFO 4340 Project',
-      description: 'An Information Science project demonstrating research, product thinking, and applied technical work from INFO 4340.',
-      imageUrl: '/images/meme-generator-cover.webp',
-      imageFit: 'contain',
-      imagePosition: 'center',
-      imageBackground: '#f0f0f0',
-      technologies: ['Information Science', 'Research', 'Product Design'],
-      problem: 'This course project brought together research, product thinking, and applied technical work around an information problem.',
-      role: 'I contributed research, synthesis, interface decisions, and implementation details across the project workflow.',
-      result: 'Created a documented project outcome that connects user needs to an approachable information experience.',
-      learned: 'I learned how to move from an open-ended brief to a focused product direction and explain the reasoning behind each design choice.',
-    },
   ];
 
   const mergeProjects = (projectList = []) => {
-    const existingKeys = new Set(
-      projectList.map((project) => project._id || normalizeTitle(project.title))
-    );
+    const existingKeys = new Set(projectList.flatMap((project) => [
+      project._id,
+      normalizeTitle(project.title),
+    ]).filter(Boolean));
     const missingFeatured = featuredProjects.filter(
-      (project) => !existingKeys.has(project._id || normalizeTitle(project.title))
+      (project) => !existingKeys.has(project._id) && !existingKeys.has(normalizeTitle(project.title))
     );
 
-    return [...missingFeatured, ...projectList].map(attachCaseStudy);
+    const seenTitles = new Set();
+    return [...missingFeatured, ...projectList]
+      .filter((project) => {
+        const title = normalizeTitle(project.title);
+        if (seenTitles.has(title)) return false;
+        seenTitles.add(title);
+        return true;
+      })
+      .map(attachCaseStudy);
   };
 
   const pictures = [
