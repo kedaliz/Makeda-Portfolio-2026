@@ -64,25 +64,9 @@ body {
    ============================================ */
 
 .header {
-  background: var(--gradient-primary);
-  color: white;
-  padding: 3rem 2rem;
-  text-align: center;
-  box-shadow: 0 14px 30px rgba(255, 107, 107, 0.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 217, 61, 0.2), transparent);
-  border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
 }
 
 .header-title {
@@ -567,5 +551,188 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Keep navigation and interactive states clear without bright overlays. */
+.header-nav .nav-link {
+  background: transparent;
+  color: #48403e;
+}
+
+.header-nav .nav-link:hover,
+.header-nav .nav-link.active {
+  background: transparent;
+  color: #742e3b;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.nav-brand:hover {
+  color: #742e3b;
+}
+
+.project-card:hover,
+.photo-card:hover,
+.skills-quick-card:hover,
+.skills-card:hover,
+.about-page:hover,
+.contact-section:hover,
+.academic-project-card:hover {
+  transform: none;
+}
+
+.project-card:hover {
+  background: white;
+  border-color: #FFE5E0;
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.08);
+}
+
+.photo-card:hover {
+  border-color: #FFE5E0;
+  box-shadow: 0 10px 24px rgba(255, 107, 107, 0.08);
+}
+
+.academic-project-card:hover {
+  background: white;
+  border-color: #FFE5E0;
+  box-shadow: 0 15px 35px rgba(255, 107, 107, 0.08);
+}
+
+.academic-project-card.expanded:hover {
+  border-color: #FFA94D;
+  box-shadow: 0 30px 60px rgba(255, 107, 107, 0.2);
+}
+
+.project-card:hover .project-title,
+.academic-project-card:hover .project-title,
+.project-card:hover .project-image,
+.photo-card:hover .photo-image,
+.about-photo-spot:hover .about-photo-image,
+.project-image-container:hover img {
+  transform: none;
+}
+
+.photo-card:hover::after,
+.about-photo-spot:hover::after {
+  opacity: 0;
+}
+
+.skills-quick-card:hover,
+.skills-card:hover {
+  background: linear-gradient(135deg, white 0%, #FFF8F5 100%);
+  border-color: #FFE5E0;
+  box-shadow: 0 10px 22px rgba(30, 41, 59, 0.08);
+}
+
+.skills-quick-card:hover .skills-group-title,
+.skills-card:hover .skills-group-title {
+  color: #FF6B6B;
+}
+
+.about-page:hover {
+  box-shadow: 0 12px 26px rgba(255, 107, 107, 0.08);
+}
+
+.contact-section:hover {
+  box-shadow: none;
+}
+
+.tech-tag,
+.tech-tag:hover {
+  background: #fff0e8;
+  color: #71343b;
+  border-color: #efc8bf;
+  transform: none;
+  box-shadow: none;
+}
+
+.expand-toggle,
+.expand-toggle[aria-expanded="true"] {
+  background: #fff0e8;
+  border-color: #b46862;
+  color: #71343b;
+}
+
+.expand-toggle:hover,
+.expand-toggle[aria-expanded="true"]:hover {
+  background: #f9ded5;
+  border-color: #71343b;
+  color: #71343b;
+  box-shadow: none;
+}
+
+.expand-toggle:hover {
+  transform: none;
+}
+
+.expand-toggle[aria-expanded="true"]:hover {
+  transform: rotateZ(180deg);
+}
+
+.project-link,
+.case-study-toggle,
+.load-more-button,
+.sticky-cta-link {
+  background: #813845;
+  border-color: #813845;
+  color: #fff;
+}
+
+.project-link:hover,
+.case-study-toggle:hover,
+.load-more-button:hover,
+.sticky-cta-link:hover {
+  background: #632733;
+  border-color: #632733;
+  color: #fff;
+  transform: none;
+  box-shadow: none;
+}
+
+.project-link::before,
+.case-study-toggle::before,
+.load-more-button::before,
+.sticky-cta-link::before,
+.contact-link::before {
+  display: none;
+}
+
+.contact-link {
+  background: transparent;
+  color: #71343b;
+  border-color: currentColor;
+}
+
+.contact-link:hover {
+  background: transparent;
+  color: #4f2029;
+  border-color: currentColor;
+  opacity: 1;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #a84255;
+  outline-offset: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .header-nav .nav-link {
+    color: #eee;
+  }
+
+  .header-nav .nav-link:hover,
+  .header-nav .nav-link.active,
+  .nav-brand:hover {
+    color: #ffd2c5;
+  }
+
+  .contact-link {
+    color: #71343b;
+  }
+
+  .contact-link:hover {
+    color: #4f2029;
   }
 }

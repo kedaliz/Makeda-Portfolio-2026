@@ -52,6 +52,17 @@ npm run dev
 
 Frontend runs at `http://localhost:5173` and calls API at `http://localhost:5000/api` by default.
 
+The Work page always displays the eight projects in `client/src/projects.js`, even
+when the API is unavailable. API projects are merged by title or project link;
+additional projects also appear on Work. Each card links to a shareable case-study
+URL such as `/#/work/meme-generator`.
+Gymling, Housing, and BI Learning Analytics appear first. Case-study text and
+Figma artifact links are maintained in `client/src/projects.js`. Figma previews
+load only when expanded and may require the file owner to enable sharing.
+
+Run the project catalogue and page-rendering checks with
+`cd client && node --test src/projects.test.js src/App.test.js`.
+
 ## Environment Variables
 
 ### Frontend (`client`)
@@ -116,4 +127,4 @@ This repo includes a root `vercel.json` to deploy the frontend from `client/`.
 
 - If deployed frontend shows no project data, verify `VITE_API_URL` is set correctly.
 - If requests fail from Vercel domain, confirm backend CORS allows your frontend domain.
-- If backend is unavailable, frontend may show fallback sample content.
+- If the backend is unavailable, the eight local projects remain available; additional API projects require the backend.

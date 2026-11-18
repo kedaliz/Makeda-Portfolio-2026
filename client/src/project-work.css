@@ -1,0 +1,271 @@
+.work-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.work-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid #efd9d2;
+  border-radius: 12px;
+  background: #fffdfa;
+}
+
+.work-card-image,
+.case-cover {
+  display: block;
+  min-width: 0;
+  background: #f7ede8;
+}
+
+.work-card-image {
+  min-height: 300px;
+}
+
+.work-cover-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: contain;
+}
+
+.work-cover-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  color: #71343b;
+  background: radial-gradient(circle at 85% 20%, #f6d5bd, transparent 50%), #f9e9e4;
+}
+
+.work-cover-placeholder span:first-child,
+.work-course {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.work-cover-placeholder span:last-child {
+  max-width: 15ch;
+  font: 400 clamp(1.8rem, 3vw, 2.7rem)/1.15 Georgia, serif;
+}
+
+.work-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.work-course {
+  margin: 0;
+  color: #81565a;
+}
+
+.work-card-title {
+  margin: 0;
+  font: 400 clamp(1.6rem, 2.5vw, 2.1rem)/1.2 Georgia, serif;
+}
+
+.work-card-title a,
+.work-card-title a:hover {
+  color: #71343b;
+}
+
+.work-description {
+  color: #494342;
+  line-height: 1.7;
+}
+
+.work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.work-tags li {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #efc8bf;
+  border-radius: 999px;
+  background: #fff0e8;
+  color: #71343b;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.work-detail-link,
+.case-back {
+  color: #71343b;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.work-detail-link:hover,
+.case-back:hover {
+  color: #4f2029;
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.work-links a {
+  color: #71343b;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.work-links a:hover {
+  color: #4f2029;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.case-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.case-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 2.5rem 0;
+}
+
+.case-header h1 {
+  color: #71343b;
+  font: 400 clamp(2.2rem, 5vw, 3.5rem)/1.15 Georgia, serif;
+}
+
+.case-intro {
+  max-width: 70ch;
+  color: #494342;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.case-cover {
+  height: clamp(300px, 45vw, 500px);
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.case-sections,
+.case-features {
+  margin-top: 2.5rem;
+}
+
+.case-sections details {
+  border-top: 1px solid #e8cfc7;
+  padding: 1.25rem 0;
+}
+
+.case-sections details:last-child {
+  border-bottom: 1px solid #e8cfc7;
+}
+
+.case-sections summary,
+.case-features h2 {
+  color: #71343b;
+  font: 400 1.5rem/1.3 Georgia, serif;
+}
+
+.case-sections summary {
+  cursor: pointer;
+}
+
+.case-sections p,
+.case-features ul {
+  margin-top: 1rem;
+  color: #494342;
+  line-height: 1.7;
+}
+
+.case-features ul {
+  padding-left: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .work-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-card-image,
+  .work-cover-image,
+  .work-cover-placeholder {
+    min-height: 220px;
+  }
+
+  .work-card-image {
+    height: 260px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .work-card {
+    background: #292120;
+    border-color: #684948;
+  }
+
+  .work-card-title a,
+  .work-card-title a:hover,
+  .case-header h1,
+  .case-sections summary,
+  .case-features h2 {
+    color: #ffd2c5;
+  }
+
+  .work-card-content .work-course,
+  .case-header .work-course {
+    color: #e4b7aa;
+  }
+
+  .work-description,
+  .case-intro,
+  .case-sections p,
+  .case-features ul {
+    color: #eee1dc;
+  }
+
+  .work-card .work-detail-link,
+  .case-page .case-back,
+  .work-card .work-links a,
+  .case-page .work-links a {
+    color: #ffd2c5;
+  }
+
+  .work-card .work-detail-link:hover,
+  .case-page .case-back:hover,
+  .work-card .work-links a:hover,
+  .case-page .work-links a:hover {
+    color: #fff1eb;
+  }
+}

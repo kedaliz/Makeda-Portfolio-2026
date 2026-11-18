@@ -1,102 +1,74 @@
-import { useState } from 'react';
 import './ProjectCard.css';
+import { projectRoute } from '../projects';
 
-const ProjectCard = ({ project }) => {
-  const [showDetails, setShowDetails] = useState(false);
-  const imageStyle = {
-    objectFit: project.imageFit || 'cover',
-    objectPosition: project.imagePosition || 'center',
-    backgroundColor: project.imageBackground || 'transparent',
-  };
-  const hasCaseStudy = Boolean(project.problem || project.role || project.result);
+export function ProjectLinks({ project }) {
+  const links = [
+    { label: 'Prototype', url: project.prototypeUrl },
+    { label: 'GitHub', url: project.githubUrl },
+    { label: 'Live Demo', url: project.liveUrl },
+    { label: 'Figma', url: project.figmaUrl },
+  ].filter((link) => link.url);
+
+  if (!links.length) return null;
 
   return (
-    <article className="project-card">
-      <div className="project-image-container">
-        <img 
-          src={project.imageUrl} 
-          alt={project.altText || `${project.title}: ${project.description}`}
-          className="project-image"
-          style={imageStyle}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <div className="project-content">
-        <h3 className="project-title">{project.title}</h3>
-        <p className="project-description">{project.description}</p>
-        
-        {project.technologies && project.technologies.length > 0 && (
-          <div className="project-technologies" role="list">
-            {project.technologies.map((tech, index) => (
-              <span key={index} className="tech-tag" role="listitem">
-                {tech}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {hasCaseStudy && (
-          <>
-            <button
-              type="button"
-              className="case-study-toggle"
-              onClick={() => setShowDetails((isOpen) => !isOpen)}
-              aria-expanded={showDetails}
-              aria-controls={`case-study-${project._id}`}
-            >
-              {showDetails ? 'Hide Details' : 'View Details'}
-            </button>
-
-            {showDetails && (
-              <div className="project-case-study" id={`case-study-${project._id}`}>
-                {project.problem && (
-                  <p className="project-detail">
-                    <span className="project-detail-label">Problem:</span> {project.problem}
-                  </p>
-                )}
-                {project.role && (
-                  <p className="project-detail">
-                    <span className="project-detail-label">My Role:</span> {project.role}
-                  </p>
-                )}
-                {project.result && (
-                  <p className="project-detail">
-                    <span className="project-detail-label">Result:</span> {project.result}
-                  </p>
-                )}
-              </div>
-            )}
-          </>
-        )}
-        
-        <div className="project-links">
-          {project.githubUrl && (
-            <a 
-              href={project.githubUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="project-link"
-              aria-label={`View ${project.title} source code on GitHub`}
-            >
-              GitHub
-            </a>
-          )}
-          {project.liveUrl && (
-            <a 
-              href={project.liveUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="project-link"
-              aria-label={`View ${project.title} live demo`}
-            >
-              Live Demo
-            </a>
-          )}
-        </div>
-      </div>
-    </article>
+    <div className="work-links">
+      {links.map((link) => (
+        <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer">
+          {link.label}<span className="sr-only"> for {project.title} (opens in a new tab)</span>
+        </a>
+      ))}
+    </div>
   );
-};
+}
+
+export function ProjectCover({ project }) {
+  return project.imageUrl ? (
+    <img
+      className="work-cover-image"
+      src={project.imageUrl}
+      alt={project.altText || `${project.title}: ${project.description}`}
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <div className="work-cover-placeholder" aria-hidden="true">
+      <span>{project.course || 'Selected work'}</span>
+      <span>{project.title}</span>
+    </div>
+  );
+}
+
+export function ProjectTags({ technologies = [] }) {
+  return technologies.length > 0 && (
+    <ul className="work-tags" aria-label="Technologies and methods">
+      {technologies.map((tech) => <li key={tech}>{tech}</li>)}
+    </ul>
+  );
+}
+
+const ProjectCard = ({ project }) => (
+  <article className="work-card">
+    <a className="work-card-image" href={projectRoute(project)} aria-label={`View ${project.title} case study`}>
+      <ProjectCover project={project} />
+    </a>
+    <div className="work-card-content">
+      {['gymling-gym', 'housing-transparency', 'bi-learning-analytics'].includes(project._id) && (
+        <p className="work-featured">Featured case study</p>
+      )}
+      {project.course && <p className="work-course">{project.course}</p>}
+      <h3 className="work-card-title">
+        <a href={projectRoute(project)}>{project.title}</a>
+      </h3>
+      <p className="work-description">{project.description}</p>
+      <ProjectTags technologies={project.technologies} />
+      <a className="work-detail-link" href={projectRoute(project)}>
+        View case study <span aria-hidden="true">→</span>
+        <span className="sr-only">: {project.title}</span>
+      </a>
+      <ProjectLinks project={project} />
+    </div>
+  </article>
+);
 
 export default ProjectCard;

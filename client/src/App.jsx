@@ -1,16 +1,27 @@
 import { useState, useEffect } from 'react';
 import ProjectCard from './components/ProjectCard';
-import ProjectsPage from './components/ProjectsPage';
+import ProjectDetail from './components/ProjectDetail';
 import { getAllProjects } from './services/api';
+import { featuredProjects, findProjectByRoute, mergeProjects } from './projects';
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-600.css';
+import '@fontsource/dm-sans/latin-700.css';
+import '@fontsource/space-grotesk/latin-400.css';
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/space-grotesk/latin-700.css';
 import './App.css';
 import './enhancements.css';
 import './warm-colors.css';
-import './cursorTrail.js';
+import './project-work.css';
+import './portfolio-theme.css';
+
+const featuredOrder = ['gymling-gym', 'housing-transparency', 'bi-learning-analytics'];
 
 function App() {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(featuredProjects);
   const [loading, setLoading] = useState(true);
   const [activePage, setActivePage] = useState('website');
+  const [route, setRoute] = useState(() => window.location.hash);
   const [visiblePhotoCount, setVisiblePhotoCount] = useState(9);
   const resumeLinks = [
     {
@@ -45,89 +56,6 @@ function App() {
       'Technical Ops': ['Real-time Troubleshooting', 'Multi-camera Livestreaming', 'Digital Archiving'],
     },
   };
-  const projectCaseStudies = {
-    byTitle: {
-      'meme generator': {
-        problem: 'Most meme-making tools are cluttered with ads and lack a simple, real-time interface for quick customization.',
-        role: 'I built the front-end logic and UI using React, focusing on a clean, responsive layout that prioritizes speed for the user.',
-        result: 'Developed a lightweight tool with zero-latency text rendering, allowing for instant creation and social sharing.',
-      },
-      'apple fest': {
-        problem: 'Large-scale community festivals often rely on static or hard-to-navigate pages that are difficult for attendees to use on mobile during the event.',
-        role: 'I designed a live-event experience with a focus on mobile-first navigation and a clear information hierarchy for schedules and maps.',
-        result: 'Created a centralized digital hub that improved information accessibility for thousands of local festival-goers in Ithaca.',
-      },
-      'community events directory': {
-        problem: 'Local community groups struggle to manage RSVPs and event visibility across fragmented social platforms.',
-        role: 'I developed the full-stack architecture (MERN), designing the database schema and a personalized user dashboard.',
-        result: 'Built a functional ecosystem that supports real-time RSVP tracking and automated event categorization to help users discover local gatherings easily.',
-      },
-    },
-  };
-
-  const normalizeTitle = (title = '') => title.trim().toLowerCase();
-
-  const attachCaseStudy = (project) => {
-    const titleKey = normalizeTitle(project.title);
-    const caseStudy = projectCaseStudies.byTitle[titleKey];
-
-    if (!caseStudy) {
-      return project;
-    }
-
-    return {
-      ...project,
-      problem: project.problem || caseStudy.problem,
-      role: project.role || caseStudy.role,
-      result: project.result || caseStudy.result,
-    };
-  };
-
-  const displayProjects = projects;
-  const featuredProjects = [
-    {
-      _id: 'meme-generator',
-      title: 'Meme Generator',
-      description: 'A fun web app to create and customize memes directly in the browser.',
-      altText: 'Screenshot of Meme Generator interface showing meme creation tools with customizable text and templates',
-      imageUrl: '/images/meme-generator-cover.webp',
-      imageFit: 'contain',
-      imagePosition: 'center',
-      imageBackground: '#f0f0f0',
-      technologies: ['React', 'JavaScript', 'CSS', 'Vercel'],
-      githubUrl: 'https://github.com/kedaliz/meme-generator',
-      liveUrl: 'https://meme-generator-quum8gtzy-kedalizs-projects.vercel.app/',
-    },
-    {
-      _id: 'apple-fest',
-      title: 'Apple Fest',
-      description: 'A live event website experience for Apple Fest.',
-      altText: 'Screenshot of Apple Fest event website showing festival schedule, vendor information, and live event details',
-      imageUrl: '/images/apple-fest-cover.webp',
-      imageFit: 'contain',
-      imagePosition: 'center',
-      imageBackground: '#f0f0f0',
-      technologies: ['React', 'Vite', 'Render'],
-      githubUrl: 'https://github.com/kedaliz/apple-fest',
-      liveUrl: 'https://apple-fest.onrender.com/',
-    },
-  ];
-
-  const mergeProjects = (projectList = []) => {
-    const normalizedExistingLiveUrls = new Set(
-      projectList
-        .map((project) => project.liveUrl?.trim().toLowerCase())
-        .filter(Boolean)
-    );
-
-    const missingFeatured = featuredProjects.filter((project) => {
-      const liveUrl = project.liveUrl?.trim().toLowerCase();
-      return !liveUrl || !normalizedExistingLiveUrls.has(liveUrl);
-    });
-
-    return [...missingFeatured, ...projectList].map(attachCaseStudy);
-  };
-
   const pictures = [
     {
       id: '1',
@@ -301,36 +229,48 @@ function App() {
 
   const visiblePictures = pictures.slice(0, visiblePhotoCount);
   const hasMorePictures = visiblePhotoCount < pictures.length;
+  const isProjectRoute = route.startsWith('#/work/');
+  const selectedProject = isProjectRoute
+    ? findProjectByRoute(projects, route)
+    : null;
+  const displayProjects = [...projects].sort((a, b) => {
+    const rank = (project) => {
+      const index = featuredOrder.indexOf(project._id);
+      return index < 0 ? featuredOrder.length : index;
+    };
+    return rank(a) - rank(b);
+  });
 
   useEffect(() => {
-    fetchProjects();
+    const handleHashChange = () => {
+      setRoute(window.location.hash);
+      setActivePage('website');
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const fetchProjects = async () => {
-    try {
-      setLoading(true);
-      const data = await getAllProjects();
-      setProjects(mergeProjects(data));
-    } catch (err) {
-      console.error('Error fetching projects:', err);
-      // Set a sample project for demo purposes when API is not available
-      setProjects(mergeProjects([
-        {
-          _id: '1',
-          title: 'Community Events Directory',
-          description: 'A full-stack MERN application for creating, managing, and RSVPing to local community gatherings.',
-          imageUrl: '/images/communityimage.webp',
-          imageFit: 'contain',
-          imagePosition: 'center',
-          imageBackground: '#f0f0f0',
-          technologies: ['React', 'Node.js', 'MongoDB Atlas', 'Express',' and Render'],
-          githubUrl: 'https://github.com/kedaliz/Community-Events.git',
-          liveUrl: 'https://community-events-v5rb.onrender.com'
-        }
-      ]));
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    let active = true;
+    getAllProjects()
+      .then((data) => {
+        if (active) setProjects(mergeProjects(data));
+      })
+      .catch((error) => console.error('Unable to load additional projects:', error))
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => { active = false; };
+  }, []);
+
+  const navigateTo = (page) => {
+    if (window.location.hash) {
+      window.history.pushState(null, '', `${window.location.pathname}${window.location.search}`);
+      setRoute('');
     }
+    setActivePage(page);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -345,21 +285,21 @@ function App() {
               <button
                 type="button"
                 className={`nav-link ${activePage === 'website' ? 'active' : ''}`}
-                onClick={() => setActivePage('website')}
+                onClick={() => navigateTo('website')}
               >
                 WORK
               </button>
               <button
                 type="button"
                 className={`nav-link ${activePage === 'pictures' ? 'active' : ''}`}
-                onClick={() => setActivePage('pictures')}
+                onClick={() => navigateTo('pictures')}
               >
                 PHOTOGRAPHY
               </button>
               <button
                 type="button"
                 className={`nav-link ${activePage === 'about' ? 'active' : ''}`}
-                onClick={() => setActivePage('about')}
+                onClick={() => navigateTo('about')}
               >
                 ABOUT
               </button>
@@ -372,15 +312,25 @@ function App() {
       </header>
 
       <main className="main-content">
-        {activePage === 'projects' ? (
-          <ProjectsPage />
+        {isProjectRoute ? (
+          selectedProject ? (
+            <ProjectDetail project={selectedProject} />
+          ) : loading ? (
+            <p role="status">Loading project...</p>
+          ) : (
+            <section className="hero-section">
+              <h1 className="section-title">Project not found</h1>
+              <a href="#/">Back to Work</a>
+            </section>
+          )
         ) : activePage === 'website' ? (
           <>
             <section className="intro-section">
               <div className="intro-content">
                 <h1 className="intro-name">Makeda Elizabeth Cabey</h1>
+                <h2 className="intro-headline">Designing ways for people to find, understand, and keep what matters.</h2>
                 <p className="intro-tagline">
-                  Information Science designer passionate about designing experiences for cultural preservation, accessibility, and social impact
+                  I’m an Information Science student from St. Thomas, USVI creating thoughtful digital experiences for culture, accessibility, community, and social impact.
                 </p>
                 
                 <div className="intro-info">
@@ -391,7 +341,7 @@ function App() {
                   
                   <div className="info-block">
                     <p className="info-label">PASSIONATE ABOUT</p>
-                    <p className="info-text">UX/UI Design, Accessibility, User Research, Tech Policy & Digital Archives</p>
+                    <p className="info-text">UX/UI & product design, user research, accessibility, information architecture, digital archives, cultural preservation, data visualization, technology & society, and full-stack development.</p>
                   </div>
                 </div>
               </div>
@@ -404,24 +354,11 @@ function App() {
               </p>
             </section>
 
-            {loading ? (
-              <div className="loading">
-                <div className="spinner"></div>
-                <p>Loading projects...</p>
-              </div>
-            ) : (
-              <div className="projects-grid">
-                {displayProjects.length > 0 ? (
-                  displayProjects.map((project) => (
-                    <ProjectCard key={project._id} project={project} />
-                  ))
-                ) : (
-                  <div className="no-projects">
-                    <p>No project to display yet.</p>
-                  </div>
-                )}
-              </div>
-            )}
+            <div className="work-grid">
+              {displayProjects.map((project) => (
+                <ProjectCard key={project._id} project={project} />
+              ))}
+            </div>
 
             <section className="contact-section" aria-label="Contact">
               <h3 className="contact-title">Let&apos;s Connect</h3>
@@ -481,7 +418,7 @@ function App() {
                     <button
                       type="button"
                       className="about-text-link"
-                      onClick={() => setActivePage('pictures')}
+                      onClick={() => navigateTo('pictures')}
                     >
                       photography
                     </button>{' '}

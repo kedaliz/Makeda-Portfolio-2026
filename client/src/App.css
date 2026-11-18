@@ -63,7 +63,8 @@
   display: flex;
   gap: 2.5rem;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  min-width: 0;
   white-space: nowrap;
 }
 
@@ -104,6 +105,7 @@
 
 .intro-section {
   margin-bottom: 4rem;
+  background: radial-gradient(ellipse at 85% 20%, rgba(255, 213, 192, 0.3), transparent 60%);
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
@@ -117,13 +119,24 @@
 }
 
 .intro-name {
-  font-size: 2.8rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
   font-weight: 400;
   margin-bottom: 1.2rem;
   letter-spacing: -0.01em;
-  color: #1a1a1a;
+  color: #71343b;
   font-style: normal;
   line-height: 1.2;
+}
+
+.intro-name::after {
+  content: '';
+  display: block;
+  width: 5rem;
+  height: 3px;
+  margin-top: 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #c45d67, #eab879);
 }
 
 .intro-tagline {
@@ -146,13 +159,15 @@
 .info-block {
   display: flex;
   flex-direction: column;
+  padding-left: 1rem;
+  border-left: 2px solid #e8b8ac;
 }
 
 .info-label {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 1.2px;
-  color: #999;
+  color: #81565a;
   margin-bottom: 0.6rem;
   text-transform: uppercase;
 }
@@ -566,6 +581,7 @@
 
   .nav-right {
     gap: 1.5rem;
+    width: 100%;
   }
 
   .nav-brand,
@@ -677,7 +693,15 @@
   }
 
   .intro-name {
-    color: #ffffff;
+    color: #ffd2c5;
+  }
+
+  .intro-section {
+    background: radial-gradient(ellipse at 85% 20%, rgba(167, 91, 83, 0.15), transparent 60%);
+  }
+
+  .info-block {
+    border-left-color: #b87977;
   }
 
   .intro-tagline {
@@ -685,7 +709,7 @@
   }
 
   .info-label {
-    color: #888;
+    color: #e4b7aa;
   }
 
   .info-text {
