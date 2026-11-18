@@ -270,20 +270,22 @@ function App() {
   ];
 
   const mergeProjects = (projectList = []) => {
-    const existingKeys = new Set(projectList.flatMap((project) => [
-      project._id,
-      normalizeTitle(project.title),
-    ]).filter(Boolean));
+    const existingIds = new Set(projectList.map((project) => String(project._id || '')).filter(Boolean));
+    const existingTitles = new Set(projectList.map((project) => normalizeTitle(project.title)).filter(Boolean));
     const missingFeatured = featuredProjects.filter(
-      (project) => !existingKeys.has(project._id) && !existingKeys.has(normalizeTitle(project.title))
+      (project) => !existingIds.has(String(project._id || ''))
+        && !existingTitles.has(normalizeTitle(project.title))
     );
 
+    const seenIds = new Set();
     const seenTitles = new Set();
     return [...missingFeatured, ...projectList]
       .filter((project) => {
         const title = normalizeTitle(project.title);
-        if (seenTitles.has(title)) return false;
-        seenTitles.add(title);
+        const id = String(project._id || '');
+        if ((id && seenIds.has(id)) || (title && seenTitles.has(title))) return false;
+        if (id) seenIds.add(id);
+        if (title) seenTitles.add(title);
         return true;
       })
       .map(attachCaseStudy);
@@ -548,7 +550,7 @@ function App() {
                 A mix of full-stack builds, UX research, product concepts, and data storytelling.
               </p>
               <p className="internship-cta">
-                 Open to post-graduation opportunities in UX/UI and Library/Archival Sciences.
+                Not seeking Summer/Fall 2026 opportunities. Open to post-graduation opportunities in UX/UI and Library/Archival Sciences.
               </p>
             </section>
 
