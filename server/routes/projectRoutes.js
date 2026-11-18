@@ -36,6 +36,7 @@ router.post('/', async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     imageUrl: req.body.imageUrl,
+    altText: req.body.altText,
     technologies: req.body.technologies,
     githubUrl: req.body.githubUrl,
     liveUrl: req.body.liveUrl,
@@ -63,7 +64,7 @@ router.put('/:id', async (req, res) => {
     }
 
     // Whitelist of allowed fields to update
-    const allowedFields = ['title', 'description', 'imageUrl', 'technologies', 'githubUrl', 'liveUrl'];
+    const allowedFields = ['title', 'description', 'imageUrl', 'altText', 'technologies', 'githubUrl', 'liveUrl'];
     
     allowedFields.forEach(field => {
       if (req.body[field] !== undefined) {

@@ -11,13 +11,15 @@ const ProjectCard = ({ project }) => {
   const hasCaseStudy = Boolean(project.problem || project.role || project.result);
 
   return (
-    <div className="project-card">
+    <article className="project-card">
       <div className="project-image-container">
         <img 
           src={project.imageUrl} 
-          alt={project.title}
+          alt={project.altText || `${project.title}: ${project.description}`}
           className="project-image"
           style={imageStyle}
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <div className="project-content">
@@ -25,9 +27,9 @@ const ProjectCard = ({ project }) => {
         <p className="project-description">{project.description}</p>
         
         {project.technologies && project.technologies.length > 0 && (
-          <div className="project-technologies">
+          <div className="project-technologies" role="list">
             {project.technologies.map((tech, index) => (
-              <span key={index} className="tech-tag">
+              <span key={index} className="tech-tag" role="listitem">
                 {tech}
               </span>
             ))}
@@ -40,12 +42,14 @@ const ProjectCard = ({ project }) => {
               type="button"
               className="case-study-toggle"
               onClick={() => setShowDetails((isOpen) => !isOpen)}
+              aria-expanded={showDetails}
+              aria-controls={`case-study-${project._id}`}
             >
               {showDetails ? 'Hide Details' : 'View Details'}
             </button>
 
             {showDetails && (
-              <div className="project-case-study">
+              <div className="project-case-study" id={`case-study-${project._id}`}>
                 {project.problem && (
                   <p className="project-detail">
                     <span className="project-detail-label">Problem:</span> {project.problem}
@@ -73,6 +77,7 @@ const ProjectCard = ({ project }) => {
               target="_blank" 
               rel="noopener noreferrer"
               className="project-link"
+              aria-label={`View ${project.title} source code on GitHub`}
             >
               GitHub
             </a>
@@ -83,13 +88,14 @@ const ProjectCard = ({ project }) => {
               target="_blank" 
               rel="noopener noreferrer"
               className="project-link"
+              aria-label={`View ${project.title} live demo`}
             >
               Live Demo
             </a>
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

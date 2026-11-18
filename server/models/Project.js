@@ -14,6 +14,10 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    altText: {
+      type: String,
+      default: '',
+    },
     technologies: {
       type: [String],
       default: [],
