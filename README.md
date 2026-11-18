@@ -130,3 +130,21 @@ This repo includes a root `vercel.json` to deploy the frontend from `client/`.
 - If deployed frontend shows no project data, verify `VITE_API_URL` is set correctly.
 - If requests fail from Vercel domain, confirm backend CORS allows your frontend domain.
 - If backend is unavailable, frontend may show fallback sample content.
+## Run locally
+
+Install dependencies once from the repository root:
+
+```bash
+npm install --prefix client
+npm install --prefix server
+```
+
+The portfolio's featured projects and case-study pages work without MongoDB:
+
+```bash
+npm run dev
+```
+
+To use the optional API, copy `server/.env.example` to `server/.env` and set
+`MONGODB_URI` to a valid MongoDB connection string before running
+`npm start`.

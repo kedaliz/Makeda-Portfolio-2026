@@ -3,10 +3,69 @@ import ProjectCard from './components/ProjectCard';
 import { getAllProjects } from './services/api';
 import './App.css';
 
+function ProjectDetail({ project, onBack }) {
+  const gallery = project.gallery?.length ? project.gallery : [project.imageUrl];
+
+  return (
+    <article className="project-detail-page">
+      <button type="button" className="back-button" onClick={onBack}>
+        ← Back to selected work
+      </button>
+      <div className="project-detail-heading">
+        <p className="section-kicker">Case study</p>
+        <h2 className="project-detail-title">{project.title}</h2>
+        <p className="project-detail-lede">{project.description}</p>
+        <div className="project-technologies">
+          {project.technologies?.map((technology) => (
+            <span key={technology} className="tech-tag">{technology}</span>
+          ))}
+        </div>
+        <div className="project-detail-links">
+          {project.githubUrl && <a className="project-link" href={project.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}
+          {project.liveUrl && <a className="project-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Live demo</a>}
+          {project.prototypeUrl && <a className="project-link" href={project.prototypeUrl} target="_blank" rel="noopener noreferrer">Prototype</a>}
+        </div>
+      </div>
+
+      <div className="project-detail-gallery">
+        {gallery.map((image, index) => (
+          <figure key={image} className={`project-gallery-item ${index === 0 ? 'project-gallery-featured' : ''}`}>
+            <img src={image} alt={`${project.title} screen ${index + 1}`} />
+          </figure>
+        ))}
+      </div>
+
+      <div className="project-detail-sections">
+        <section>
+          <p className="section-kicker">The challenge</p>
+          <h3>What needed solving</h3>
+          <p>{project.problem || 'This project started with an opportunity to make a complex experience clearer, more useful, and more human.'}</p>
+        </section>
+        <section>
+          <p className="section-kicker">My contribution</p>
+          <h3>What I did</h3>
+          <p>{project.role || 'I shaped the research, design, and implementation into a focused project outcome.'}</p>
+        </section>
+        <section>
+          <p className="section-kicker">The outcome</p>
+          <h3>What changed</h3>
+          <p>{project.result || 'The final work connected the original problem to a clear, usable experience.'}</p>
+        </section>
+        <section>
+          <p className="section-kicker">Reflection</p>
+          <h3>What I learned</h3>
+          <p>{project.learned || 'I learned how to communicate the reasoning behind a project, not just the finished interface.'}</p>
+        </section>
+      </div>
+    </article>
+  );
+}
+
 function App() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activePage, setActivePage] = useState('website');
+  const [activeProject, setActiveProject] = useState(null);
   const [visiblePhotoCount, setVisiblePhotoCount] = useState(9);
   const resumeLinks = [
     {
@@ -62,6 +121,8 @@ function App() {
         problem: 'Instructors need a clear way to identify engagement and performance patterns in clicker data, while students need private, actionable feedback about their progress.',
         role: 'As part of Team R, I helped translate the assignment goals into instructor and student dashboard views with R Shiny, summary metrics, and comparative visualizations.',
         result: 'Produced a working dashboard prototype with attendance-versus-performance analysis, sentiment trends, student quiz comparisons, weak-area analysis, and next-step resources.',
+        learned: 'I learned how to turn messy behavioral data into a clear narrative, and how different audiences need different views of the same evidence.',
+        gallery: ['/images/uploads/student-dashboard.png'],
       },
     },
   };
@@ -81,6 +142,8 @@ function App() {
       problem: project.problem || caseStudy.problem,
       role: project.role || caseStudy.role,
       result: project.result || caseStudy.result,
+      learned: project.learned || caseStudy.learned,
+      gallery: project.gallery || caseStudy.gallery,
     };
   };
 
@@ -124,6 +187,7 @@ function App() {
       problem: 'Local community groups struggle to manage RSVPs and event visibility across fragmented social platforms.',
       role: 'I developed the full-stack MERN architecture, designed the database schema, and built a personalized user dashboard.',
       result: 'Built a functional ecosystem with RSVP tracking and event categorization to make local gatherings easier to discover.',
+      learned: 'I learned how product decisions, data models, and interface details have to work together in a full-stack experience.',
     },
     {
       _id: 'gymling',
@@ -137,6 +201,16 @@ function App() {
       problem: 'New gym users can feel overwhelmed by unfamiliar equipment, confusing layouts, and uncertainty about how to get started. Contextual interviews showed that the first visit is especially difficult when people do not know where to go or how to use the equipment.',
       role: 'I contributed contextual research, persona development, onboarding flows, spatial navigation, and iterative usability testing for the high-fidelity prototype.',
       result: 'Created a high-fidelity Figma prototype that makes the gym feel more approachable through visual guidance, equipment support, and progress-based motivation.',
+      learned: 'I learned how contextual research can reveal emotional barriers, then guide a more supportive onboarding and navigation experience.',
+      gallery: [
+        '/images/uploads/gym-home.png',
+        '/images/uploads/gym-tour.png',
+        '/images/uploads/workout-plan.png',
+        '/images/uploads/gym-explore.png',
+        '/images/uploads/gym-detected.png',
+        '/images/uploads/gym-task.png',
+        '/images/uploads/gym-success.png',
+      ],
       prototypeUrl: 'https://www.figma.com/design/9OKq6DH2Zxlj85XFYgzZlC/a4-group-prototype?node-id=0-1&t=wa9OKKqz2wRCauOl-1',
     },
     {
@@ -165,6 +239,15 @@ function App() {
       problem: 'Cornell undergraduates often sign leases without reliable information about total costs, housing conditions, or landlord responsiveness. This information gap can disproportionately affect lower-income, international, and disabled students.',
       role: 'As part of Team 5, I contributed to the research and product design for a centralized housing platform covering Collegetown, Cayuga Heights, and Downtown. The experience includes an interactive map, filters, favorites, property scorecards, anonymous surveys, reviews, contact details, and a verified FAQ.',
       result: 'Designed and evaluated a prototype intended to help students compare rent, fees, amenities, safety, cleanliness, maintenance response, and value before signing a lease. The project targeted at least 25 reviews across 10 properties and an 85% user-satisfaction goal.',
+      learned: 'I learned how to scope a complex information problem, make trust visible in the interface, and design a comparison flow around the decisions users actually need to make.',
+      gallery: [
+        '/images/uploads/red-door-home.png',
+        '/images/uploads/red-door-neighborhood.png',
+        '/images/uploads/red-door-properties.png',
+        '/images/uploads/red-door-overview.png',
+        '/images/uploads/red-door-survey.png',
+        '/images/uploads/housing-wireframe.png',
+      ],
     },
     {
       _id: 'creative-business-longevity',
@@ -178,28 +261,34 @@ function App() {
       problem: 'Creative businesses experienced uneven recovery after the pandemic, making it important to understand which industries and communities were most resilient.',
       role: 'I cleaned, wrangled, and modeled municipal business registry datasets using a reproducible Quarto workflow.',
       result: 'Published data-driven findings about longevity trends in Los Angeles creative industries.',
-    },
-    {
-      _id: 'info-4340',
-      title: 'INFO 4340 Project',
-      description: 'An Information Science project demonstrating research, product thinking, and applied technical work from INFO 4340.',
-      imageUrl: '/images/meme-generator-cover.webp',
-      imageFit: 'contain',
-      imagePosition: 'center',
-      imageBackground: '#f0f0f0',
-      technologies: ['Information Science', 'Research', 'Product Design'],
+      learned: 'I learned how reproducible analysis and thoughtful visual encodings can make long-term trends more legible without flattening the story in the data.',
+      gallery: [
+        '/images/uploads/monthly-business-registrations.png',
+        '/images/uploads/business-by-sector.png',
+      ],
     },
   ];
 
   const mergeProjects = (projectList = []) => {
-    const existingKeys = new Set(
-      projectList.map((project) => project._id || normalizeTitle(project.title))
-    );
+    const existingIds = new Set(projectList.map((project) => String(project._id || '')).filter(Boolean));
+    const existingTitles = new Set(projectList.map((project) => normalizeTitle(project.title)).filter(Boolean));
     const missingFeatured = featuredProjects.filter(
-      (project) => !existingKeys.has(project._id || normalizeTitle(project.title))
+      (project) => !existingIds.has(String(project._id || ''))
+        && !existingTitles.has(normalizeTitle(project.title))
     );
 
-    return [...missingFeatured, ...projectList].map(attachCaseStudy);
+    const seenIds = new Set();
+    const seenTitles = new Set();
+    return [...missingFeatured, ...projectList]
+      .filter((project) => {
+        const title = normalizeTitle(project.title);
+        const id = String(project._id || '');
+        if ((id && seenIds.has(id)) || (title && seenTitles.has(title))) return false;
+        if (id) seenIds.add(id);
+        if (title) seenTitles.add(title);
+        return true;
+      })
+      .map(attachCaseStudy);
   };
 
   const pictures = [
@@ -403,7 +492,7 @@ function App() {
             <button
               type="button"
               className="brand-mark"
-              onClick={() => setActivePage('website')}
+              onClick={() => { setActiveProject(null); setActivePage('website'); }}
             >
               MAKEDA ELIZABETH CABEY
             </button>
@@ -411,21 +500,21 @@ function App() {
             <button
               type="button"
               className={`page-nav-button ${activePage === 'website' ? 'active' : ''}`}
-              onClick={() => setActivePage('website')}
+              onClick={() => { setActiveProject(null); setActivePage('website'); }}
             >
               Work
             </button>
             <button
               type="button"
               className={`page-nav-button ${activePage === 'about' ? 'active' : ''}`}
-              onClick={() => setActivePage('about')}
+              onClick={() => { setActiveProject(null); setActivePage('about'); }}
             >
               About
             </button>
             <button
               type="button"
               className={`page-nav-button ${activePage === 'pictures' ? 'active' : ''}`}
-              onClick={() => setActivePage('pictures')}
+              onClick={() => { setActiveProject(null); setActivePage('pictures'); }}
             >
               Photography
             </button>
@@ -450,7 +539,9 @@ function App() {
       </header>
 
       <main className="main-content">
-        {activePage === 'website' ? (
+        {activeProject ? (
+          <ProjectDetail project={activeProject} onBack={() => setActiveProject(null)} />
+        ) : activePage === 'website' ? (
           <>
             <section className="hero-section">
               <p className="section-kicker">Selected work · 2024—2026</p>
@@ -459,7 +550,7 @@ function App() {
                 A mix of full-stack builds, UX research, product concepts, and data storytelling.
               </p>
               <p className="internship-cta">
-                 Open to Summer/Fall 2026 opportunities in UX/UI and Library/Archival Sciences.
+                Not seeking Summer/Fall 2026 opportunities. Open to post-graduation opportunities in UX/UI and Library/Archival Sciences.
               </p>
             </section>
 
@@ -472,7 +563,7 @@ function App() {
               <div className="projects-grid">
                 {displayProjects.length > 0 ? (
                   displayProjects.map((project) => (
-                    <ProjectCard key={project._id} project={project} />
+                    <ProjectCard key={project._id} project={project} onOpen={setActiveProject} />
                   ))
                 ) : (
                   <div className="no-projects">
@@ -534,7 +625,7 @@ function App() {
                     ))}
                   </div>
                   <p className="about-text">
-                    I’m an Information Science junior at Cornell University focusing on UX/UI and Tech Ethics Law, and Policy I’m originally from St. Thomas, USVI, and a lot of what I do is inspired by the vibrant culture of the Caribbean and the Black experience.
+                    I’m an Information Science junior at Cornell University focusing on UX/UI and Tech Ethics Law and Policy. I’m originally from St. Thomas, USVI, and a lot of what I do is inspired by the vibrant culture of the Caribbean and the Black experience.
                   </p>
                   <p className="about-text">
                     Lately, I've been using design, code, and{' '}
